@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly | Secure IoT Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #333333;
+            --accent: #000000;
+            --bg-light: #F7F7F9;
+            --bg-white: #FFFFFF;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --border-color: #EAEAEA;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .split-layout {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* Left Side: Image Panel */
+        .visual-panel {
+            flex: 1;
+            background-color: var(--primary);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 32px;
+            color: var(--bg-white);
+        }
+
+        .visual-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/images/about_hero_bg_1782207405483.webp');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            filter: grayscale(100%);
+            z-index: 0;
+        }
+
+        .panel-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--bg-white);
+            margin-bottom: 40px;
+        }
+
+        /* Right Side: Form Panel */
+        .auth-panel {
+            flex: 1;
+            position: relative;
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            padding: 48px 20px 20px 20px;
+            perspective: 1000px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* Back to Home Button */
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.8rem;
+            padding: 8px 14px;
+            border-radius: 30px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            z-index: 10;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-to-home:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Form Container for sliding animation */
+        .forms-container {
+            width: 100%;
+            max-width: 400px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            align-items: flex-start;
+            margin: auto;
+        }
+
+        .auth-card {
+            grid-column: 1;
+            grid-row: 1;
+            width: 100%;
+            background: var(--bg-white);
+            padding: 28px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+            margin: 0;
+        }
+
+        /* Active Form State */
+        .auth-card.active {
+            opacity: 1;
+            pointer-events: all;
+            visibility: visible;
+            transform: translateX(0) scale(1);
+        }
+
+        /* Inactive Form States (Sliding out) */
+        .auth-card.login-form:not(.active) {
+            transform: translateX(-100px) scale(0.95);
+        }
+        
+        .auth-card.signup-form:not(.active) {
+            transform: translateX(100px) scale(0.95);
+        }
+
+        /* Form Common Styles */
+        .auth-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .auth-header h2 {
+            font-size: 1.35rem;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: var(--transition);
+            height: 44px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--bg-white);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+        }
+
+        /* Role Selector */
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .role-option {
+            position: relative;
+        }
+
+        .role-option input {
+            display: none;
+        }
+
+        .role-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .role-option input:checked + .role-card {
+            background-color: var(--primary);
+            color: var(--bg-white);
+            border-color: var(--primary);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem; z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .checkbox-group input {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .forgot-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffffff !important;
+            color: #1e293b !important;
+            border: 1.5px solid #cbd5e1 !important;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            height: 46px;
+            margin-top: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            background-color: #f8fafc !important;
+            border-color: #94a3b8 !important;
+            color: #0f172a !important;
+        }
+
+        .auth-footer {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .notification {
+            position: fixed;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .notification {
+            display: none !important;
+        }
+
+        @media (max-width: 992px) {
+            .visual-panel {
+                display: none;
+            }
+        }
+        @media (max-width: 576px) {
+            .auth-card {
+                padding: 30px;
+            }
+        }
+        /* Hide default Edge password reveal icon */
+        input::-ms-reveal, input::-ms-clear { display: none; }
+
+        /* Custom Inline Error Messages Validation Styling */
+        .inline-error-msg {
+            color: #d32f2f !important;
+            font-size: 0.8rem !important;
+            font-weight: 600 !important;
+            margin-top: 6px !important;
+            display: none !important;
+            align-items: center !important;
+            gap: 6px !important;
+            line-height: 1.3 !important;
+        }
+        .inline-error-msg i {
+            color: #d32f2f !important;
+            font-size: 0.95rem !important;
+        }
+        .inline-error-msg.active {
+            display: flex !important;
+        }
+        .form-control.is-invalid {
+            border-color: #d32f2f !important;
+            background-color: #fff8f8 !important;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15) !important;
+        }
+        .checkbox-group.is-invalid label {
+            color: #d32f2f !important;
+            font-weight: 600 !important;
+        }
+
+        /* Prevent Microsoft Edge default password reveal eye icon */
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear,
+        input::-ms-reveal,
+        input::-ms-clear,
+        ::-ms-reveal,
+        ::-ms-clear {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="notification" class="notification"></div>
+
+    <div class="split-layout">
+        <!-- Persistent Left Image -->
+        <div class="visual-panel">
+            <div class="panel-content">
+                <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="Stackly" style="height: 32px; width: auto;"></a>
+            </div>
+            <div class="panel-content">
+                <h1 style="font-size: 3rem; margin-bottom: 20px; letter-spacing: -0.02em;">Elevate your<br>connected enterprise.</h1>
+                <p style="font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 400px;">Experience complete control, enhanced security, and unmatched efficiency across your exclusive IoT network.</p>
+            </div>
+        </div>
+        
+        <!-- Right Form Panel -->
+        <div class="auth-panel">
+            <a href="index.html" class="back-to-home">
+                <i class="ph-bold ph-arrow-left"></i> Back to Home
+            </a>
+
+            <div class="forms-container">
+                
+                <!-- LOGIN FORM -->
+                <div class="auth-card login-form active" id="login-panel">
+                    <div style="text-align: center; margin-bottom: 16px;"><img src="assets/images/logo.webp" alt="Stackly" class="auth-logo" style="height: 40px; width: auto; object-fit: contain;"></div>
+                    <div class="auth-header" style="margin-bottom: 24px;">
+                        <h2>Welcome Back</h2>
+                        <p style="margin-top: 6px; margin-bottom: 0;">Sign in to your IoT management portal.</p>
+                    </div>
+
+                    <form id="login-form" novalidate>
+                        <div class="form-group">
+                            <label class="form-label">Account Type</label>
+                            <div class="role-selector">
+                                <label class="role-option">
+                                    <input type="radio" name="login_role" value="user" checked>
+                                    <div class="role-card"><i class="ph-fill ph-user"></i> Operator</div>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="login_role" value="admin">
+                                    <div class="role-card"><i class="ph-fill ph-shield-star"></i> Admin</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="login-email" class="form-label">Email Address</label>
+                            <input type="email" id="login-email" class="form-control" placeholder="name@example.com">
+                            <span class="inline-error-msg" id="login-email-error"><i class="ph-fill ph-warning-circle"></i> Please enter a valid email address.</span>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" id="login-password" class="form-control" placeholder="••••••••">
+                            <i class="ph ph-eye password-toggle" id="toggle-login-pwd"></i>
+                            <span class="inline-error-msg" id="login-password-error"><i class="ph-fill ph-warning-circle"></i> Please enter your password.</span>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 25px;">
+                            <div class="checkbox-group" style="margin: 0;">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="404.html" class="forgot-link">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="login-submit-btn">
+                            <span>Sign In</span>
+                            <i class="ph-bold ph-sign-in"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-footer">
+                        Don't have an account? <a id="go-to-signup">Register here</a>
+                    </div>
+                </div>
+
+                <!-- SIGNUP FORM -->
+                <div class="auth-card signup-form" id="signup-panel">
+                    <div style="text-align: center; margin-bottom: 16px;"><img src="assets/images/logo.webp" alt="Stackly" class="auth-logo" style="height: 40px; width: auto; object-fit: contain;"></div>
+                    <div class="auth-header" style="margin-bottom: 24px;">
+                        <h2>Create Account</h2>
+                        <p style="margin-top: 6px; margin-bottom: 0;">Enter your details to register for Stackly.</p>
+                    </div>
+
+                    <form id="signup-form" novalidate>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="form-label">Account Type</label>
+                            <div class="role-selector" style="margin-bottom: 0;">
+                                <label class="role-option">
+                                    <input type="radio" name="signup_role" value="user" checked>
+                                    <div class="role-card"><i class="ph-fill ph-user"></i> Operator</div>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="signup_role" value="admin">
+                                    <div class="role-card"><i class="ph-fill ph-shield-star"></i> Admin</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="signup-fullname" class="form-label">Full Name</label>
+                            <input type="text" id="signup-fullname" class="form-control" placeholder="John Doe">
+                            <span class="inline-error-msg" id="signup-fullname-error"><i class="ph-fill ph-warning-circle"></i> Please enter your full name.</span>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="signup-email" class="form-label">Email Address</label>
+                            <input type="email" id="signup-email" class="form-control" placeholder="name@example.com">
+                            <span class="inline-error-msg" id="signup-email-error"><i class="ph-fill ph-warning-circle"></i> Please enter a valid email address.</span>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="signup-password" class="form-label">Password</label>
+                            <input type="password" id="signup-password" class="form-control" placeholder="••••••••">
+                            <i class="ph ph-eye password-toggle" id="toggle-signup-pwd"></i>
+                            <span class="inline-error-msg" id="signup-password-error"><i class="ph-fill ph-warning-circle"></i> Password must be at least 6 characters.</span>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" id="signup-confirm-password" class="form-control" placeholder="••••••••">
+                            <i class="ph ph-eye password-toggle" id="toggle-signup-confirm-pwd"></i>
+                            <span class="inline-error-msg" id="signup-confirm-password-error"><i class="ph-fill ph-warning-circle"></i> Passwords do not match.</span>
+                        </div>
+
+                        <div class="checkbox-group" style="margin-bottom: 20px;">
+                            <input type="checkbox" id="terms">
+                            <label for="terms">I accept the Terms and Conditions</label>
+                            <span class="inline-error-msg" id="terms-error"><i class="ph-fill ph-warning-circle"></i> You must accept the Terms and Conditions.</span>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="signup-submit-btn">
+                            <span>Register Account</span>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-footer">
+                        Already have an account? <a id="go-to-login">Sign In</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginPanel = document.getElementById('login-panel');
+            const signupPanel = document.getElementById('signup-panel');
+            const goToSignup = document.getElementById('go-to-signup');
+            const goToLogin = document.getElementById('go-to-login');
+            const notification = document.getElementById('notification');
+
+            const loginForm = document.getElementById('login-form');
+            const loginSubmitBtn = document.getElementById('login-submit-btn');
+            const signupForm = document.getElementById('signup-form');
+            const signupSubmitBtn = document.getElementById('signup-submit-btn');
+
+            // --- Switch Animations ---
+            if (goToSignup) {
+                goToSignup.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (loginPanel) loginPanel.classList.remove('active');
+                    if (signupPanel) signupPanel.classList.add('active');
+                });
+            }
+
+            if (goToLogin) {
+                goToLogin.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (signupPanel) signupPanel.classList.remove('active');
+                    if (loginPanel) loginPanel.classList.add('active');
+                });
+            }
+
+            // --- Password Toggles ---
+            const createToggle = (toggleId, inputId) => {
+                const toggleBtn = document.getElementById(toggleId);
+                const inputEl = document.getElementById(inputId);
+                if (toggleBtn && inputEl) {
+                    toggleBtn.addEventListener('click', () => {
+                        const type = inputEl.getAttribute('type') === 'password' ? 'text' : 'password';
+                        inputEl.setAttribute('type', type);
+                        toggleBtn.className = type === 'password' ? 'ph ph-eye password-toggle' : 'ph ph-eye-slash password-toggle';
+                    });
+                }
+            };
+
+            createToggle('toggle-login-pwd', 'login-password');
+            createToggle('toggle-signup-pwd', 'signup-password');
+            createToggle('toggle-signup-confirm-pwd', 'signup-confirm-password');
+
+            function showNotification(msg, type) {
+                // Top notification toast disabled completely as requested
+                return;
+            }
+
+            const isValidEmail = (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+
+            const validateField = (input, errorId, condition) => {
+                const errorEl = document.getElementById(errorId);
+                if (!condition) {
+                    if (input && input.type === 'checkbox') {
+                        const group = input.closest('.checkbox-group');
+                        if (group) group.classList.add('is-invalid');
+                    } else if (input) {
+                        input.classList.add('is-invalid');
+                    }
+                    if (errorEl) errorEl.classList.add('active');
+                    return false;
+                } else {
+                    if (input && input.type === 'checkbox') {
+                        const group = input.closest('.checkbox-group');
+                        if (group) group.classList.remove('is-invalid');
+                    } else if (input) {
+                        input.classList.remove('is-invalid');
+                    }
+                    if (errorEl) errorEl.classList.remove('active');
+                    return true;
+                }
+            };
+
+            const attachRealtimeClearing = (form) => {
+                if (!form) return;
+                form.setAttribute('novalidate', 'novalidate');
+                form.querySelectorAll('input').forEach(input => {
+                    input.addEventListener('invalid', (e) => {
+                        e.preventDefault();
+                    });
+                    input.addEventListener('input', () => {
+                        input.classList.remove('is-invalid');
+                        if (input.type === 'checkbox') {
+                            const group = input.closest('.checkbox-group');
+                            if (group) group.classList.remove('is-invalid');
+                        }
+                        const errorEl = document.getElementById(input.id + '-error');
+                        if (errorEl) errorEl.classList.remove('active');
+                    });
+                    input.addEventListener('change', () => {
+                        input.classList.remove('is-invalid');
+                        if (input.type === 'checkbox') {
+                            const group = input.closest('.checkbox-group');
+                            if (group) group.classList.remove('is-invalid');
+                        }
+                        const errorEl = document.getElementById(input.id + '-error');
+                        if (errorEl) errorEl.classList.remove('active');
+                    });
+                });
+            };
+
+            if (loginForm) attachRealtimeClearing(loginForm);
+            if (signupForm) attachRealtimeClearing(signupForm);
+
+            // --- LOGIN LOGIC ---
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const loginEmailInput = document.getElementById('login-email');
+                    const loginPasswordInput = document.getElementById('login-password');
+                    let isValid = true;
+
+                    if (!validateField(loginEmailInput, 'login-email-error', loginEmailInput && loginEmailInput.value.trim().length > 0 && isValidEmail(loginEmailInput.value.trim()))) isValid = false;
+                    if (!validateField(loginPasswordInput, 'login-password-error', loginPasswordInput && loginPasswordInput.value.length > 0)) isValid = false;
+
+                    if (!isValid) {
+                        const firstInvalid = loginForm.querySelector('.is-invalid');
+                        if (firstInvalid) firstInvalid.focus();
+                        return;
+                    }
+
+                    const roleEl = document.querySelector('input[name="login_role"]:checked');
+                    const role = roleEl ? roleEl.value : 'user';
+                    const email = loginEmailInput ? loginEmailInput.value.trim() : '';
+                    const password = loginPasswordInput ? loginPasswordInput.value : '';
+
+                    if (loginSubmitBtn) {
+                        loginSubmitBtn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> Authenticating...';
+                        loginSubmitBtn.disabled = true;
+                    }
+
+                    setTimeout(() => {
+                        let users = JSON.parse(localStorage.getItem('Stackly_users')) || [];
+                        let user = users.find(u => u.email === email && u.role === role);
+
+                        if (!user) {
+                            user = { 
+                                email: email || 'user@example.com', 
+                                role: role, 
+                                fullname: email ? email.split('@')[0] : 'Resident', 
+                                password: password || '123456' 
+                            };
+                        }
+
+                        localStorage.setItem('Stackly_current_user', JSON.stringify(user));
+                        showNotification('Authentication successful', 'success');
+                        
+                        setTimeout(() => {
+                            if (user.role === 'admin') {
+                                window.location.href = 'admin-dashboard.html';
+                            } else {
+                                window.location.href = 'user-dashboard.html';
+                            }
+                        }, 1000);
+                    }, 1000);
+                });
+            }
+
+            // --- SIGNUP FULLNAME REALTIME CHECK ---
+            const signupFullnameInput = document.getElementById('signup-fullname');
+            if (signupFullnameInput) {
+                signupFullnameInput.addEventListener('input', () => {
+                    const val = signupFullnameInput.value.trim();
+                    const alphaRegex = /^[A-Za-z\s]+$/;
+                    const errorEl = document.getElementById('signup-fullname-error');
+                    if (val !== '' && !alphaRegex.test(val)) {
+                        signupFullnameInput.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Full name must contain only alphabets and spaces.';
+                            errorEl.classList.add('active');
+                        }
+                    } else {
+                        signupFullnameInput.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- SIGNUP FORM SUBMIT ---
+            if (signupForm) {
+                signupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const fullnameInput = document.getElementById('signup-fullname');
+                    const emailInput = document.getElementById('signup-email');
+                    const passwordInput = document.getElementById('signup-password');
+                    const confirmPasswordInput = document.getElementById('signup-confirm-password');
+                    const termsInput = document.getElementById('terms');
+
+                    const validateFullname = (input, errorId) => {
+                        const errorEl = document.getElementById(errorId);
+                        const val = input ? input.value.trim() : '';
+                        const alphaRegex = /^[A-Za-z\s]+$/;
+
+                        if (val === '') {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your full name.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else if (!alphaRegex.test(val)) {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Full name must contain only alphabets and spaces.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else {
+                            if (input) input.classList.remove('is-invalid');
+                            if (errorEl) errorEl.classList.remove('active');
+                            return true;
+                        }
+                    };
+
+                    const validateSignupEmail = (input, errorId) => {
+                        const errorEl = document.getElementById(errorId);
+                        const val = input ? input.value.trim() : '';
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                        if (val === '') {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your email address.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else if (!emailRegex.test(val)) {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter a valid email address.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else {
+                            if (input) input.classList.remove('is-invalid');
+                            if (errorEl) errorEl.classList.remove('active');
+                            return true;
+                        }
+                    };
+
+                    const validateSignupPassword = (input, errorId) => {
+                        const errorEl = document.getElementById(errorId);
+                        const val = input ? input.value : '';
+
+                        if (val === '') {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your password.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else if (val.length < 6) {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Password must be at least 6 characters.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else {
+                            if (input) input.classList.remove('is-invalid');
+                            if (errorEl) errorEl.classList.remove('active');
+                            return true;
+                        }
+                    };
+
+                    const validateConfirmPassword = (input, pwdInput, errorId) => {
+                        const errorEl = document.getElementById(errorId);
+                        const val = input ? input.value : '';
+
+                        if (val === '') {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please confirm your password.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else if (!pwdInput || val !== pwdInput.value) {
+                            if (input) input.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Passwords do not match.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else {
+                            if (input) input.classList.remove('is-invalid');
+                            if (errorEl) errorEl.classList.remove('active');
+                            return true;
+                        }
+                    };
+
+                    const validateTerms = (input, errorId) => {
+                        const errorEl = document.getElementById(errorId);
+                        const group = input ? input.closest('.checkbox-group') : null;
+
+                        if (!input || !input.checked) {
+                            if (group) group.classList.add('is-invalid');
+                            if (errorEl) {
+                                errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> You must accept the Terms and Conditions.';
+                                errorEl.classList.add('active');
+                            }
+                            return false;
+                        } else {
+                            if (group) group.classList.remove('is-invalid');
+                            if (errorEl) errorEl.classList.remove('active');
+                            return true;
+                        }
+                    };
+
+                    let isValid = true;
+
+                    if (!validateFullname(fullnameInput, 'signup-fullname-error')) isValid = false;
+                    if (!validateSignupEmail(emailInput, 'signup-email-error')) isValid = false;
+                    if (!validateSignupPassword(passwordInput, 'signup-password-error')) isValid = false;
+                    if (!validateConfirmPassword(confirmPasswordInput, passwordInput, 'signup-confirm-password-error')) isValid = false;
+                    if (!validateTerms(termsInput, 'terms-error')) isValid = false;
+
+                    if (!isValid) {
+                        const firstInvalid = signupForm.querySelector('.is-invalid');
+                        if (firstInvalid) firstInvalid.focus();
+                        return;
+                    }
+
+                    const roleEl = document.querySelector('input[name="signup_role"]:checked');
+                    const role = roleEl ? roleEl.value : 'user';
+                    const fullname = fullnameInput ? fullnameInput.value.trim() : '';
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const password = passwordInput ? passwordInput.value : '';
+
+                    if (signupSubmitBtn) {
+                        signupSubmitBtn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> Processing...';
+                        signupSubmitBtn.disabled = true;
+                    }
+
+                    setTimeout(() => {
+                        let users = JSON.parse(localStorage.getItem('Stackly_users')) || [];
+                        users.push({ role, fullname, email, password });
+                        localStorage.setItem('Stackly_users', JSON.stringify(users));
+
+                        if (signupSubmitBtn) {
+                            signupSubmitBtn.innerHTML = '<span>Register Account</span><i class="ph-bold ph-arrow-right"></i>';
+                            signupSubmitBtn.disabled = false;
+                        }
+                        signupForm.reset();
+                        // Slide back to login after successful registration
+                        if (goToLogin) goToLogin.click();
+
+                    }, 1000);
+                });
+            }
+
+            // Check URL parameters for direct linking
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') === 'signup' && goToSignup) {
+                goToSignup.click();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

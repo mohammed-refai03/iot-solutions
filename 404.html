@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Node Offline | LUMEN OS</title>
+    
+    <!-- TailWind CSS Platform Engine CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Google Fonts Connectivity -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #000000;
+            --bg-light: #F7F7F9;
+            --border-color: #EAEAEA;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+        }
+        .font-serif-luxury {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Continuous Technical Radar Sweep Keyframes */
+        @keyframes radarSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .radar-line-sweep {
+            transform-origin: 100px 100px;
+            animation: radarSweep 5s linear infinite;
+        }
+
+        /* Pulsing Unsynchronized Error Dot Keyframes */
+        @keyframes errorPulse {
+            0%, 100% { r: 3px; fill-opacity: 0.3; filter: drop-shadow(0 0 2px #000000); }
+            50% { r: 6px; fill-opacity: 1; filter: drop-shadow(0 0 12px #000000); }
+        }
+        .error-node-pulse {
+            animation: errorPulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden min-h-[100dvh] w-full flex flex-col justify-center py-8 lg:py-0 text-[#111111] relative">
+
+    <!-- Subtle Technical Background Matrix Grid -->
+    <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+
+    <div class="max-w-6xl w-full mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+        
+        <!-- LEFT PANEL: INFINITE BLUEPRINT RADAR CANVAS -->
+        <div class="lg:col-span-6 flex justify-center items-center relative h-[250px] sm:h-[350px] lg:h-[450px] w-full mx-auto">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-64 h-48 sm:h-64 bg-black/5 rounded-full blur-[80px] pointer-events-none"></div>
+            
+            <!-- Technical Vector Radar Interface -->
+            <svg class="w-full h-full max-h-[250px] sm:max-h-[350px] lg:max-h-[420px]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="80" stroke="#EAEAEA" stroke-width="1" />
+                <circle cx="100" cy="100" r="55" stroke="#EAEAEA" stroke-width="0.75" stroke-dasharray="4 4" />
+                <circle cx="100" cy="100" r="30" stroke="#EAEAEA" stroke-width="1" />
+                
+                <line x1="20" y1="100" x2="180" y2="100" stroke="#EAEAEA" stroke-width="0.75" />
+                <line x1="100" y1="20" x2="100" y2="180" stroke="#EAEAEA" stroke-width="0.75" />
+                
+                <g class="radar-line-sweep">
+                    <line x1="100" y1="100" x2="100" y2="20" stroke="url(#radarGradient)" stroke-width="1.5" stroke-linecap="round" />
+                </g>
+
+                <circle class="error-node-pulse" cx="145" cy="65" r="4" fill="#000000" />
+                <rect x="139" y="59" width="12" height="12" stroke="#000000" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="2 2" />
+
+                <defs>
+                    <linearGradient id="radarGradient" x1="100" y1="100" x2="100" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+                        <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            
+            <div class="absolute bottom-2 sm:bottom-8 lg:bottom-12 text-center font-mono text-[9px] sm:text-[10px] text-stone-400 tracking-wider">
+                SYS_ERR // NODE_DISCONNECTED // ID_0x404_VOID
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: EDITORIAL TEXT CONTROL MODULE -->
+        <div class="lg:col-span-6 flex flex-col justify-center text-center lg:text-left space-y-4 sm:space-y-6">
+            <div class="space-y-1 sm:space-y-2">
+                <span class="text-black text-[10px] sm:text-xs tracking-widest uppercase font-bold block">Network Timeout</span>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif-luxury leading-tight font-medium">
+                    Link Topology <br><span class="italic text-stone-400 font-normal">Dropped Out.</span>
+                </h1>
+            </div>
+            <p class="text-stone-500 text-xs sm:text-sm lg:text-base max-w-md mx-auto lg:mx-0 leading-relaxed">
+                The device target or automated routing path configuration you are calling cannot sync. The requested page has dropped offline or left our network topology completely.
+            </p>
+            
+            <!-- ACTIONS NAVIGATION TRAY -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2 sm:pt-4 w-full">
+                <button onclick="returnToHome()" class="w-full sm:w-auto bg-black hover:bg-stone-800 text-white text-[10px] sm:text-xs tracking-wider uppercase font-bold px-6 py-3 sm:py-4 rounded-xl shadow-md active:scale-95 transition-all duration-300">
+                    Back to Home
+                </button>
+                <button onclick="goBackToPreviousLocation()" class="w-full sm:w-auto bg-white hover:bg-stone-50 text-black border border-[#EAEAEA] text-[10px] sm:text-xs tracking-wider uppercase font-bold px-6 py-3 sm:py-4 rounded-xl active:scale-95 transition-all duration-300">
+                    Go Back
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TECHNICAL ROUTING SCRIPTS -->
+    <script>
+        function returnToHome() {
+            window.location.href = "index.html";
+        }
+
+        function goBackToPreviousLocation() {
+            if (document.referrer && window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

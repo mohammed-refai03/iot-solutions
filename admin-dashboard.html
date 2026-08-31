@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly | IoT Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #333333;
+            --accent: #000000;
+            --bg-light: #F7F7F9;
+            --bg-white: #FFFFFF;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --border-color: #EAEAEA;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html, body { height: 100%; }
+        body { background-color: var(--bg-light); color: var(--text-main); display: flex; min-height: 100vh; overflow: hidden; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px; background-color: var(--bg-white); border-right: 1px solid var(--border-color);
+            padding: 24px 16px; display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100;
+        }
+        .brand { font-size: 1.1rem; font-weight: 700; color: #E76F51; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 28px; padding-left: 8px; }
+        .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+        .nav-item a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; border-radius: 10px; transition: var(--transition); cursor: pointer; font-size: 0.875rem; }
+        .nav-item a i { font-size: 1.1rem; transition: transform 0.3s ease; flex-shrink: 0; }
+        .nav-item a:hover { background-color: var(--bg-light); color: #2A9D8F; }
+        .nav-item.active a { background-color: #EEF7F6; color: #2A9D8F; font-weight: 600; border-radius: 0 10px 10px 0; border-left: 3px solid #2A9D8F; padding-left: 9px; }
+        
+        .nav-footer { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px; }
+        .user-profile-sidebar { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 10px; }
+        .user-profile-sidebar .avatar { width: 34px; height: 34px; border-radius: 50%; background: transparent; color: #2A9D8F; border: 2px solid #2A9D8F; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+        .user-profile-sidebar .user-info { display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+        .user-profile-sidebar .user-role { font-size: 0.8rem; font-weight: 600; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .user-profile-sidebar .user-email { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .logout-btn { display: flex; align-items: center; gap: 8px; color: #E76F51; font-weight: 600; font-size: 0.8rem; text-decoration: none; padding: 8px 10px; transition: var(--transition); border-radius: 8px; }
+        .logout-btn:hover { background: #FFF3E0; }
+
+        /* Main Content */
+        .main-content { flex: 1; margin-left: 250px; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 14px 28px; border-bottom: 1px solid var(--border-color); background: var(--bg-white); position: sticky; top: 0; z-index: 50; flex-shrink: 0; }
+        .header-title h1 { font-size: 1.1rem; font-weight: 700; color: #111; letter-spacing: -0.01em; }
+        .header-title p { display: none; }
+        
+        .user-profile-top { display: flex; align-items: center; gap: 10px; }
+        .user-profile-top .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-profile-top .user-role { font-size: 0.8rem; font-weight: 600; color: #111; }
+        .user-profile-top .user-email { font-size: 0.7rem; color: var(--text-muted); }
+        .user-profile-top .avatar { width: 34px; height: 34px; border-radius: 50%; background: transparent; color: #2A9D8F; border: 2px solid #2A9D8F; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; }
+
+        .tab-wrapper { padding: 20px 24px; flex: 1; }
+        .dashboard-tab { display: none; }
+        .dashboard-tab.active { display: block; }
+
+        /* Grids */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+        .full-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+        /* Cards & Hover Effects */
+        .card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow-sm); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: #2A9D8F; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .card:hover::before { transform: scaleX(1); }
+
+        .stat-card { display: flex; flex-direction: column; gap: 6px; }
+        .stat-header { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+        .stat-header i, .card-title i {
+            font-size: 1.55rem;
+            color: #2A9D8F;
+            background: #EEF7F6;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .card:hover .stat-header i, .card:hover .card-title i {
+            background: #2A9D8F;
+            color: #ffffff;
+            transform: scale(1.08);
+        }
+        .stat-value { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; display: flex; align-items: baseline; gap: 4px; color: #111; }
+        .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; color: #111; flex-wrap: wrap; gap: 10px; }
+
+        /* Tables */
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; } @media (max-width: 992px) { .data-table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; } }
+        .data-table th { font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.06em; padding: 0 12px 8px 12px; }
+        .data-table td { padding: 11px 12px; font-size: 0.875rem; border-bottom: 1px solid var(--border-color); transition: var(--transition); }
+        .data-table tbody tr { transition: background 0.2s ease; cursor: pointer; }
+        .data-table tbody tr:hover { background: var(--bg-light); }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+
+        .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .status-online { background: #E8F5E9; color: #2E7D32; }
+        .status-offline { background: #FFEBEE; color: #C62828; }
+        .status-warning { background: #FFF3E0; color: #EF6C00; }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+        }
+
+        /* Activity List */
+        .activity-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .activity-item { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 8px; background: var(--bg-light); border: 1px solid var(--border-color); transition: var(--transition); }
+        .activity-item:hover { background: var(--bg-white); box-shadow: var(--shadow-sm); }
+        .activity-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--bg-white); display: flex; align-items: center; justify-content: center; color: #2A9D8F; font-size: 1rem; transition: var(--transition); flex-shrink: 0; border: 1px solid var(--border-color); }
+        .activity-item:hover .activity-icon { background: #2A9D8F; color: white; border-color: #2A9D8F; }
+        .activity-details h4 { font-size: 0.82rem; font-weight: 600; margin-bottom: 1px; }
+        .activity-details p { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Buttons */
+        .btn { padding: 8px 16px; border-radius: 8px; font-weight: 500; font-size: 0.82rem; cursor: pointer; transition: var(--transition); border: none; display: inline-flex; align-items: center; gap: 6px; height: 34px; }
+        .btn-primary { background: #111; color: white; }
+        .btn-primary:hover { background: #333; transform: translateY(-1px); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { border-color: #2A9D8F; color: #2A9D8F; }
+
+        .chart-container { position: relative; height: 240px; width: 100%; margin-top: 8px; }
+            /* Mobile Sidebar CSS */
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #111; margin-right: 16px; }
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; }
+            .sidebar.open { transform: translateX(0); box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+            .main-content { margin-left: 0; }
+            .mobile-toggle { display: block; }
+            .header { justify-content: flex-start; }
+            .header-title { flex: 1; }
+            body.sidebar-open, html.sidebar-open {
+                overflow: hidden !important;
+                height: 100vh !important;
+                touch-action: none !important;
+            }
+            body.sidebar-open .main-content, body.sidebar-open .main-panel {
+                overflow: hidden !important;
+                touch-action: none !important;
+            }
+        }
+        .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-right: 4px; }
+        .sidebar-close-btn { display: none; background: transparent; border: none; font-size: 1.3rem; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: 8px; transition: var(--transition); }
+        .sidebar-close-btn:hover { color: #111; background: var(--bg-light); }
+        @media (max-width: 992px) {
+            .sidebar-close-btn { display: inline-flex; align-items: center; justify-content: center; }
+        }
+        /* Dashboard Mobile Adjustments */
+        @media (max-width: 992px) {
+            .top-grid, .bottom-grid, .scene-grid, .gadget-list, .gadget-grid, .dashboard-grid, .stats-grid, .charts-grid, .devices-grid, .metrics-grid, .activity-grid, .main-grid, .dual-grid, div[style*="grid-template-columns"], div[style*="grid"] {
+                grid-template-columns: 1fr !important;
+            }
+            .chart-container {
+                min-height: 220px !important;
+                height: auto !important;
+            }
+            .dash-table, .data-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .header { padding: 14px 20px; display: flex; align-items: center; }
+            .mobile-toggle { margin-right: 12px; font-size: 1.5rem; }
+            .header-title { flex: 1; }
+            .header-title h1 { font-size: 1.2rem; }
+            .user-profile-top .user-info { display: none !important; }
+            .section-title { font-size: 1.25rem; }
+        }</style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="brand" style="margin-bottom:0;">
+                <img src="assets/images/logo.webp" alt="Stackly" style="height: 32px; width: auto;"> 
+            </a>
+            <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close Sidebar"><i class="ph ph-x"></i></button>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item active" data-tab="tab-overview">
+                <a><i class="ph ph-squares-four"></i> Dashboard</a>
+            </li>
+            <li class="nav-item" data-tab="tab-analytics">
+                <a><i class="ph ph-chart-bar"></i> Telemetry Analytics</a>
+            </li>
+            <li class="nav-item" data-tab="tab-devices">
+                <a><i class="ph ph-devices"></i> IoT Devices</a>
+            </li>
+            <li class="nav-item" data-tab="tab-users">
+                <a><i class="ph ph-users"></i> System Users</a>
+            </li>
+            <li class="nav-item" data-tab="tab-automations">
+                <a><i class="ph ph-lightning"></i> IoT Automations</a>
+            </li>
+        </ul>
+
+        <div class="nav-footer">
+            <div class="user-profile-sidebar">
+                <div class="avatar" id="sidebar-avatar-initial">S</div>
+                <div class="user-info">
+                    <span class="user-role" id="sidebar-role">System Administrator</span>
+                    <span class="user-email" id="sidebar-email">info@stackly.com</span>
+                </div>
+            </div>
+            <a href="login.html" id="logout-btn" class="logout-btn">
+                <i class="ph ph-sign-out"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <button class="mobile-toggle"><i class="ph ph-list"></i></button><div class="header-title">
+                <h1 id="page-title">IoT Overview Dashboard</h1>
+                <p id="page-subtitle">System performance and telemetry metrics.</p>
+            </div>
+            
+            <div class="user-profile-top">
+                <div class="user-info">
+                    <span class="user-role" id="top-role">Admin Member</span>
+                    <span class="user-email" id="top-email">info@stackly.com</span>
+                </div>
+                <div class="avatar" id="top-avatar-initial">S</div>
+            </div>
+        </header>
+
+        <div class="tab-wrapper">
+        <!-- TAB 1: OVERVIEW -->
+        <div id="tab-overview" class="dashboard-tab active">
+            <div class="dashboard-grid">
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Total Operators</span><i class="ph ph-users"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="1248">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #2E7D32; font-weight:600;">+12%</span> this month</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Active IoT Nodes</span><i class="ph ph-cpu"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="5432">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #2E7D32; font-weight:600;">98.5%</span> uptime</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>IoT Automations</span><i class="ph ph-lightning"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="8914">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Executing daily</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Energy Saved</span><i class="ph ph-leaf"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="42">0</span><span style="font-size: 1.2rem; color: var(--text-muted);">MWh</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #2E7D32; font-weight:600;">+18%</span> efficiency</p>
+                </div>
+            </div>
+
+            <div class="main-grid">
+                <div class="card gs-reveal" style="display:flex; flex-direction:column;">
+                    <div class="card-title">Live Server Latency & Data Ingest <span style="font-size: 0.8rem; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border-radius: 12px; font-weight: bold;"><span style="display:inline-block; width:8px; height:8px; background:#2E7D32; border-radius:50%; margin-right:4px; animation: pulse 1.5s infinite;"></span>LIVE</span></div>
+                    <div class="chart-container" style="flex:1;">
+                        <canvas id="miniServerChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card gs-reveal" style="background: #111; color: #0F0; font-family: monospace; height: 350px; display: flex; flex-direction: column;">
+                    <div class="card-title" style="color: #FFF; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 10px;">IoT Terminal Telemetry</div>
+                    <div id="terminal-output" style="flex: 1; overflow-y: hidden; font-size: 0.85rem; line-height: 1.6; display: flex; flex-direction: column; justify-content: flex-end;">
+                        <!-- JS injected logs -->
+                        <div style="color: #666;">> IoT Gateway telemetry initialized...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Regional NOC Router Telemetry Table -->
+            <div class="full-grid" style="margin-top: 14px;">
+                <div class="card gs-reveal">
+                    <div class="card-title">Global Regional NOC Router Telemetry Table</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Region Data Center</th>
+                                <th>Active Gateways</th>
+                                <th>Ingest Rate (msg/s)</th>
+                                <th>Average Latency</th>
+                                <th>Security Status</th>
+                                <th>Health</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>North America (San Francisco NOC)</strong></td>
+                                <td>1,842 Gateways</td>
+                                <td>14,500 MSG/s</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">1.1 ms</span></td>
+                                <td><span class="status-badge status-online">Protected</span></td>
+                                <td><span class="status-badge status-online">Optimal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Europe (Frankfurt NOC)</strong></td>
+                                <td>1,520 Gateways</td>
+                                <td>12,200 MSG/s</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">1.4 ms</span></td>
+                                <td><span class="status-badge status-online">Protected</span></td>
+                                <td><span class="status-badge status-online">Optimal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Asia Pacific (Singapore NOC)</strong></td>
+                                <td>1,210 Gateways</td>
+                                <td>9,800 MSG/s</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">1.8 ms</span></td>
+                                <td><span class="status-badge status-online">Protected</span></td>
+                                <td><span class="status-badge status-online">Optimal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Japan & East Asia (Tokyo NOC)</strong></td>
+                                <td>860 Gateways</td>
+                                <td>6,400 MSG/s</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">1.2 ms</span></td>
+                                <td><span class="status-badge status-online">Protected</span></td>
+                                <td><span class="status-badge status-online">Optimal</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: TELEMETRY ANALYTICS -->
+        <div id="tab-analytics" class="dashboard-tab">
+            <!-- Telemetry Stat Count Cards Row -->
+            <div class="dashboard-grid">
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Ingest Bandwidth</span><i class="ph ph-broadcast"></i></div>
+                    <div class="stat-value">4.8 <span style="font-size: 1.1rem; color: var(--text-muted);">GB/s</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #2E7D32; font-weight:600;">Live Stream</span> payload</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Kafka Queue Latency</span><i class="ph ph-clock"></i></div>
+                    <div class="stat-value">1.2 <span style="font-size: 1.1rem; color: var(--text-muted);">ms</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #2E7D32; font-weight:600;">0 Backlog</span> packets</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Database IOPS</span><i class="ph ph-database"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="48500">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #2E7D32; font-weight:600;">99.99%</span> write speed</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Cloud Storage</span><i class="ph ph-hard-drives"></i></div>
+                    <div class="stat-value">4.2 <span style="font-size: 1.1rem; color: var(--text-muted);">TB</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color: #EF6C00; font-weight:600;">91%</span> capacity used</p>
+                </div>
+            </div>
+
+            <!-- Radial Gauges Row -->
+            <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <!-- Radial Progress Meters -->
+                <div class="card gs-reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                    <div style="font-weight:600; color:var(--text-muted); margin-bottom:15px; text-transform:uppercase; font-size:0.85rem;">Cluster CPU Load</div>
+                    <div style="width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--primary) 78%, #eee 0); display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: var(--bg-white); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <span style="font-size:1.8rem; font-weight:700; line-height:1;" id="cpu-val">78%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card gs-reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                    <div style="font-weight:600; color:var(--text-muted); margin-bottom:15px; text-transform:uppercase; font-size:0.85rem;">RAM Allocation</div>
+                    <div style="width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(#2E7D32 62%, #eee 0); display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: var(--bg-white); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <span style="font-size:1.8rem; font-weight:700; line-height:1;" id="ram-val">62%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card gs-reveal" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                    <div style="font-weight:600; color:var(--text-muted); margin-bottom:15px; text-transform:uppercase; font-size:0.85rem;">Storage Utilization</div>
+                    <div style="width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(#EF6C00 91%, #eee 0); display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: var(--bg-white); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <span style="font-size:1.8rem; font-weight:700; line-height:1;" id="storage-val">91%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dual Analytics Charts Grid -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div class="card gs-reveal">
+                    <div class="card-title">Live Network Telemetry Throughput <span style="font-size: 0.8rem; background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border-radius: 12px; font-weight: bold;"><span style="display:inline-block; width:8px; height:8px; background:#2E7D32; border-radius:50%; margin-right:4px; animation: pulse 1.5s infinite;"></span>LIVE</span></div>
+                    <div class="chart-container"><canvas id="energyChart"></canvas></div>
+                </div>
+                <div class="card gs-reveal" style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+                    <div class="card-title">Payload Protocol Breakdown</div>
+                    <div class="chart-container" style="position:relative; flex:1; min-height:220px; height:100%;"><canvas id="telemetryPayloadDoughnut"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Telemetry Pipeline Performance Table -->
+            <div class="full-grid">
+                <div class="card gs-reveal">
+                    <div class="card-title">Telemetry Ingestion Pipeline Performance Table</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Pipeline ID</th>
+                                <th>Ingest Stream</th>
+                                <th>Message Volume</th>
+                                <th>Error Rate</th>
+                                <th>Buffer Usage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>#PIPE-MQTT-01</code></td>
+                                <td>High-Speed Telemetry Queue</td>
+                                <td>24.5M MSG/day</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">0.001%</span></td>
+                                <td>14% Buffer</td>
+                                <td><span class="status-badge status-online">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>#PIPE-LORA-02</code></td>
+                                <td>LPWAN Long-Range Mesh</td>
+                                <td>8.2M MSG/day</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">0.004%</span></td>
+                                <td>22% Buffer</td>
+                                <td><span class="status-badge status-online">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>#PIPE-REST-03</code></td>
+                                <td>HTTP API Ingest Endpoint</td>
+                                <td>5.1M MSG/day</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">0.002%</span></td>
+                                <td>18% Buffer</td>
+                                <td><span class="status-badge status-online">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>#PIPE-BAC-04</code></td>
+                                <td>Industrial BACnet Relay</td>
+                                <td>2.8M MSG/day</td>
+                                <td><span style="color:#2E7D32; font-weight:600;">0.000%</span></td>
+                                <td>08% Buffer</td>
+                                <td><span class="status-badge status-online">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: IOT DEVICES -->
+        <div id="tab-devices" class="dashboard-tab">
+            <!-- Stat Cards Row -->
+            <div class="dashboard-grid">
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Managed Fleet</span><i class="ph ph-devices"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="5432">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Global Nodes</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Zero-Touch Flashed</span><i class="ph ph-cpu"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="4980">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">TPM 2.0 Security</span></p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Encryption SLA</span><i class="ph ph-shield-check"></i></div>
+                    <div class="stat-value">100%</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">AES-256 TLS 1.3</span></p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>OTA Compliance</span><i class="ph ph-arrows-clockwise"></i></div>
+                    <div class="stat-value">98.5%</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">v4.2.1-OTA</span></p>
+                </div>
+            </div>
+
+            <!-- Online/Offline Status Bar & Chart -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div class="card gs-reveal">
+                    <div class="card-title">Protocol Distribution Across Fleet</div>
+                    <div class="chart-container"><canvas id="deviceProtocolChart"></canvas></div>
+                </div>
+                <div class="card stat-card gs-reveal" style="flex-direction: column; justify-content: space-around;">
+                    <div class="card-title" style="margin-bottom:0;">Device Health Snapshot</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                        <span style="color:var(--text-muted);">Online Nodes</span>
+                        <h3 style="font-size:1.5rem; font-weight:700; color:#2E7D32;">5,210</h3>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                        <span style="color:var(--text-muted);">OTA Updating</span>
+                        <h3 style="font-size:1.5rem; font-weight:700; color:#EF6C00;">180</h3>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:var(--text-muted);">Offline Nodes</span>
+                        <h3 style="font-size:1.5rem; font-weight:700; color:#C62828;">42</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-grid">
+                <div class="card gs-reveal">
+                    <div class="card-title">
+                        Active IoT Network Hardware Directory
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Device Name</th>
+                                <th>Category</th>
+                                <th>Location Hub</th>
+                                <th>Firmware</th>
+                                <th>Power / Battery</th>
+                                <th>Signal (RSSI)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="ph ph-lightbulb" style="margin-right: 8px; color:#2A9D8F;"></i> Sector 1 Relay Array</td>
+                                <td>Lighting & Relays</td>
+                                <td>HQ Building A</td>
+                                <td>v1.4.2</td>
+                                <td>100% AC Grid</td>
+                                <td>-38 dBm</td>
+                                <td><span class="status-badge status-online">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><i class="ph ph-thermometer" style="margin-right: 8px; color:#2A9D8F;"></i> Main HVAC Gateway</td>
+                                <td>Climate Probe</td>
+                                <td>HQ Building B</td>
+                                <td>v2.0.1</td>
+                                <td>98% AC Grid</td>
+                                <td>-42 dBm</td>
+                                <td><span class="status-badge status-online">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td><i class="ph ph-lock-key" style="margin-right: 8px; color:#2A9D8F;"></i> North Gate Barrier</td>
+                                <td>Access Gateway</td>
+                                <td>Perimeter Zone 1</td>
+                                <td>v3.1.0</td>
+                                <td>85% POE</td>
+                                <td>-50 dBm</td>
+                                <td><span class="status-badge status-offline">Offline</span></td>
+                            </tr>
+                            <tr>
+                                <td><i class="ph ph-speaker-hifi" style="margin-right: 8px; color:#2A9D8F;"></i> Lobby Audio Node</td>
+                                <td>Media Streaming</td>
+                                <td>HQ Building A</td>
+                                <td>v1.1.8</td>
+                                <td>94% Battery</td>
+                                <td>-45 dBm</td>
+                                <td><span class="status-badge status-warning">Updating</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: SYSTEM USERS -->
+        <div id="tab-users" class="dashboard-tab">
+            <!-- Stat Cards Row -->
+            <div class="dashboard-grid">
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Total Operators</span><i class="ph ph-users"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="1248">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">+12%</span> this month</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Active Sessions</span><i class="ph ph-user-check"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="142">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Logged in now</p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>MFA Enforced</span><i class="ph ph-shield-check"></i></div>
+                    <div class="stat-value">100%</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">Security Compliant</span></p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Security Alerts</span><i class="ph ph-warning-circle"></i></div>
+                    <div class="stat-value">0</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">No Anomalies</span></p>
+                </div>
+            </div>
+
+            <!-- User Login Trends Chart & Table Grid -->
+            <div class="card gs-reveal" style="margin-bottom: 14px;">
+                <div class="card-title">Operator Activity & Access Session Trends (Weekly)</div>
+                <div class="chart-container" style="height: 200px;"><canvas id="userLoginTrendChart"></canvas></div>
+            </div>
+
+            <div class="full-grid">
+                <div class="card gs-reveal">
+                    <div class="card-title">
+                        Registered System Operators Directory
+                   </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email Address</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: IOT AUTOMATIONS -->
+        <div id="tab-automations" class="dashboard-tab">
+            <!-- Stat Cards Row -->
+            <div class="dashboard-grid">
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Triggered Today</span><i class="ph ph-lightning"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="12450">0</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">Sub-2ms trigger</span></p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Active Routines</span><i class="ph ph-gear"></i></div>
+                    <div class="stat-value"><span class="counter" data-target="42">0</span> Rules</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">100% Enabled</span></p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Execution Errors</span><i class="ph ph-x-circle"></i></div>
+                    <div class="stat-value">0</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);"><span style="color:#2E7D32; font-weight:600;">Zero Failures</span></p>
+                </div>
+                <div class="card stat-card gs-reveal">
+                    <div class="stat-header"><span>Avg Latency</span><i class="ph ph-clock"></i></div>
+                    <div class="stat-value">0.8 <span style="font-size: 1.1rem; color: var(--text-muted);">ms</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Sub-millisecond SLA</p>
+                </div>
+            </div>
+
+            <!-- Automation Execution Frequency Chart -->
+            <div class="card gs-reveal" style="margin-bottom: 14px;">
+                <div class="card-title">Hourly Automation Execution Frequency (Last 12 Hours)</div>
+                <div class="chart-container" style="height: 200px;"><canvas id="automationFrequencyChart"></canvas></div>
+            </div>
+
+            <div class="main-grid" style="margin-bottom: 14px;">
+                <div class="card gs-reveal">
+                    <div class="card-title">Active Global Smart Routines</div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="ph ph-sun"></i></div>
+                            <div class="activity-details"><h4>Morning Wakeup Sequence</h4><p>Triggers at 6:00 AM. Fades lights, adjusts HVAC to 70°F.</p></div>
+                            <span class="status-badge status-online" style="margin-left:auto;">Active</span>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="ph ph-lock-key"></i></div>
+                            <div class="activity-details"><h4>Nightly Lockdown Routine</h4><p>Triggers at 11:00 PM. Locks all perimeter security barriers.</p></div>
+                            <span class="status-badge status-online" style="margin-left:auto;">Active</span>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon" style="background:#FFF3E0; color:#EF6C00;"><i class="ph ph-thermometer"></i></div>
+                            <div class="activity-details"><h4>Eco Climate Standby Mode</h4><p>Triggers when rooms are empty to save power.</p></div>
+                            <span class="status-badge status-warning" style="margin-left:auto;">Paused</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card gs-reveal" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="card-title">Automation Rule Health</div>
+                    <div style="display:flex; flex-direction:column; gap:10px; margin-top:6px;">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:3px;"><span>Environmental Rules</span><span style="font-weight:600; color:#2E7D32;">100% Passed</span></div>
+                            <div style="height:5px; background:#EEE; border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:#2E7D32;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:3px;"><span>Access Gateways</span><span style="font-weight:600; color:#2E7D32;">100% Passed</span></div>
+                            <div style="height:5px; background:#EEE; border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:#2E7D32;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:3px;"><span>Power Management</span><span style="font-weight:600; color:#EF6C00;">94% Efficiency</span></div>
+                            <div style="height:5px; background:#EEE; border-radius:3px; overflow:hidden;"><div style="width:94%; height:100%; background:#EF6C00;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:3px;"><span>OTA Firmware Triggers</span><span style="font-weight:600; color:#2E7D32;">100% Passed</span></div>
+                            <div style="height:5px; background:#EEE; border-radius:3px; overflow:hidden;"><div style="width:100%; height:100%; background:#2E7D32;"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:3px;"><span>Emergency NOC Fail-Safe</span><span style="font-weight:600; color:#2E7D32;">99.8% Active</span></div>
+                            <div style="height:5px; background:#EEE; border-radius:3px; overflow:hidden;"><div style="width:99.8%; height:100%; background:#2E7D32;"></div></div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); border-top:1px solid var(--border-color); padding-top:6px; margin-top:2px;">
+                            <span>Overall Automation Index</span>
+                            <strong style="color:#2E7D32; font-weight:700;">99.2% Optimal</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Automation Rules & Event Triggers Table -->
+            <div class="full-grid">
+                <div class="card gs-reveal">
+                    <div class="card-title">Global Automation Rules & Event Triggers Table</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Rule ID</th>
+                                <th>Rule Name</th>
+                                <th>Trigger Event</th>
+                                <th>Target Action</th>
+                                <th>Execution Schedule</th>
+                                <th>State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>#RULE-101</code></td>
+                                <td>HVAC Day Routine</td>
+                                <td>Time = 06:00 AM</td>
+                                <td>Set Climate 70°F</td>
+                                <td>Daily Cron</td>
+                                <td><span class="status-badge status-online">Enabled</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>#RULE-102</code></td>
+                                <td>Night Lock Array</td>
+                                <td>Time = 11:00 PM</td>
+                                <td>Arm Perimeter Locks</td>
+                                <td>Daily Cron</td>
+                                <td><span class="status-badge status-online">Enabled</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>#RULE-103</code></td>
+                                <td>Motion Alert Sync</td>
+                                <td>Sensor Ingest = Motion</td>
+                                <td>Trigger NOC Warning</td>
+                                <td>Event-Driven</td>
+                                <td><span class="status-badge status-online">Enabled</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>#RULE-104</code></td>
+                                <td>Eco Power Cut</td>
+                                <td>Occupancy = 0</td>
+                                <td>Dim Lighting 50%</td>
+                                <td>Event-Driven</td>
+                                <td><span class="status-badge status-warning">Standby</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: SETTINGS -->
+        <div id="tab-settings" class="dashboard-tab">
+            <div class="full-grid">
+                <div class="card gs-reveal">
+                    <div class="card-title">Platform Configuration</div>
+                    <p style="color:var(--text-muted); margin-bottom:20px;">Manage system-wide administrative settings.</p>
+                    <div style="display:flex; flex-direction:column; gap:15px; max-width: 400px;">
+                        <button class="btn btn-outline" style="justify-content:flex-start;"><i class="ph ph-palette"></i> Theme Preferences</button>
+                        <button class="btn btn-outline" style="justify-content:flex-start;"><i class="ph ph-shield"></i> Security & 2FA</button>
+                        <button class="btn btn-outline" style="justify-content:flex-start;"><i class="ph ph-database"></i> Database Backups</button>
+                        <button class="btn btn-outline" style="justify-content:flex-start; color:#C62828; border-color:#FFEBEE; background:#FFEBEE;"><i class="ph ph-warning"></i> Factory Reset System</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Authentication
+            const currentUser = JSON.parse(localStorage.getItem('Stackly_current_user'));
+            if (!currentUser || currentUser.role !== 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('sidebar-email').textContent = currentUser.email;
+            document.getElementById('top-email').textContent = currentUser.email;
+            document.getElementById('sidebar-role').textContent = 'Admin Member';
+            document.getElementById('top-role').textContent = 'Admin Member';
+            
+            const init = currentUser.fullname.charAt(0).toUpperCase();
+            document.getElementById('sidebar-avatar-initial').textContent = init;
+            document.getElementById('top-avatar-initial').textContent = init;
+
+            document.getElementById('logout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('Stackly_current_user');
+                window.location.href = 'login.html';
+            });
+
+            // Populate Users Table
+            let users = JSON.parse(localStorage.getItem('Stackly_users')) || [];
+            if (users.length === 0) {
+                users = [
+                    { fullname: 'John Doe', email: 'john@example.com', role: 'admin' },
+                    { fullname: 'Jane Smith', email: 'jane@example.com', role: 'operator' },
+                    { fullname: 'Alice Johnson', email: 'alice@example.com', role: 'operator' },
+                    { fullname: 'Bob Builder', email: 'bob@example.com', role: 'operator' },
+                    { fullname: 'Charlie Brown', email: 'charlie@example.com', role: 'operator' }
+                ];
+            }
+            const usersTableBody = document.getElementById('users-table-body');
+            users.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${user.fullname}</strong></td>
+                    <td>${user.email}</td>
+                    <td>${user.role === 'admin' ? '<span style="color:var(--primary);font-weight:600;">Admin</span>' : 'Operator'}</td>
+                    <td><span class="status-badge status-online">Active</span></td>
+                    <td><button class="btn btn-outline" onclick="window.location.href='404.html'" style="padding: 5px 10px; font-size:0.8rem;">Edit</button></td>
+                `;
+                usersTableBody.appendChild(tr);
+            });
+
+            // GSAP Animations Function
+            function animateContent(tabElement) {
+                // 1. Text Asymmetrical Reveal
+                const textElements = tabElement.querySelectorAll("h1, h2, h3, h4, p, label");
+                if (textElements.length > 0) {
+                    gsap.fromTo(textElements, 
+                        { x: (i) => i % 2 === 0 ? 50 : -50, opacity: 0 },
+                        { x: 0, opacity: 1, duration: 1, stagger: 0.05, ease: "power2.out" }
+                    );
+                }
+
+                // 2. Card 3D Stagger Reveal (From Services)
+                const cards = tabElement.querySelectorAll(".gs-reveal, .stat-card, .card");
+                if (cards.length > 0) {
+                    gsap.set(cards, { transformPerspective: 1000 });
+                    gsap.fromTo(cards, 
+                        { y: 80, rotationX: -45, opacity: 0 },
+                        { y: 0, rotationX: 0, opacity: 1, duration: 1.2, stagger: 0.1, ease: "back.out(1.5)" }
+                    );
+                }
+
+                // Animate counters
+                const counters = tabElement.querySelectorAll('.counter');
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    gsap.fromTo(counter, 
+                        { innerHTML: 0 }, 
+                        { innerHTML: target, duration: 1.5, ease: "power2.out", snap: { innerHTML: 1 }, onUpdate: function() {
+                            counter.innerHTML = Math.round(this.targets()[0].innerHTML).toLocaleString();
+                        }}
+                    );
+                });
+            }
+
+            // Tab Logic
+            const navItems = document.querySelectorAll('.nav-item[data-tab]');
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            const pageTitle = document.getElementById('page-title');
+            const pageSubtitle = document.getElementById('page-subtitle');
+
+            const titles = {
+                'tab-overview': { title: 'IoT Overview', subtitle: 'System performance and telemetry metrics.' },
+                'tab-analytics': { title: 'Telemetry Analytics', subtitle: 'Real-time data visualization.' },
+                'tab-devices': { title: 'IoT Devices', subtitle: 'Global network hardware directory.' },
+                'tab-users': { title: 'System Users', subtitle: 'Operator and administrative access.' },
+                'tab-automations': { title: 'IoT Automations', subtitle: 'Global smart routines and triggers.' },
+                'tab-settings': { title: 'Settings', subtitle: 'System configurations.' }
+            };
+
+            let analyticsChartsRendered = false;
+            let devicesChartRendered = false;
+            let usersChartRendered = false;
+            let automationsChartRendered = false;
+
+            function switchTab(targetId) {
+                document.querySelector('.main-content').scrollTop = 0;
+                // Update nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                const activeNav = document.querySelector(`.nav-item[data-tab="${targetId}"]`);
+                if(activeNav) activeNav.classList.add('active');
+
+                // Switch tabs
+                tabs.forEach(tab => tab.classList.remove('active'));
+                const targetTab = document.getElementById(targetId);
+                targetTab.classList.add('active');
+
+                // Header text update with animation
+                gsap.to([pageTitle, pageSubtitle], { opacity: 0, y: -10, duration: 0.2, onComplete: () => {
+                    pageTitle.textContent = titles[targetId].title;
+                    pageSubtitle.textContent = titles[targetId].subtitle;
+                    gsap.to([pageTitle, pageSubtitle], { opacity: 1, y: 0, duration: 0.4 });
+                }});
+
+                // Trigger GSAP entrance
+                animateContent(targetTab);
+
+                // Init charts on demand per tab
+                if (targetId === 'tab-overview' && !document.getElementById('miniServerChart').classList.contains('rendered')) {
+                    renderMiniChart();
+                } else if (targetId === 'tab-analytics' && !analyticsChartsRendered) {
+                    renderCharts();
+                    renderTelemetryPayloadDoughnut();
+                    analyticsChartsRendered = true;
+                } else if (targetId === 'tab-devices' && !devicesChartRendered) {
+                    renderDeviceProtocolChart();
+                    devicesChartRendered = true;
+                } else if (targetId === 'tab-users' && !usersChartRendered) {
+                    renderUserLoginTrendChart();
+                    usersChartRendered = true;
+                } else if (targetId === 'tab-automations' && !automationsChartRendered) {
+                    renderAutomationFrequencyChart();
+                    automationsChartRendered = true;
+                }
+            }
+
+            // Initial Animation & Chart Initialization
+            animateContent(document.getElementById('tab-overview'));
+            renderMiniChart();
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if(!item.classList.contains('active')) {
+                        switchTab(item.getAttribute('data-tab'));
+                    }
+                });
+            });
+
+            // Charts
+            function renderMiniChart() {
+                document.getElementById('miniServerChart').classList.add('rendered');
+                const ctx = document.getElementById('miniServerChart').getContext('2d');
+                window.miniServerChartObj = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['10m', '8m', '6m', '4m', '2m', 'Now'],
+                        datasets: [{
+                            label: 'Server Load (%)',
+                            data: [35, 42, 38, 55, 45, 40],
+                            borderColor: '#000', backgroundColor: 'rgba(0,0,0,0.05)',
+                            fill: true, tension: 0.4, borderWidth: 2
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false, min: 0, max: 100 } } }
+                });
+            }
+
+            function renderCharts() {
+                const ctxEnergy = document.getElementById('energyChart').getContext('2d');
+                window.energyChartObj = new Chart(ctxEnergy, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{ label: 'Ingest (GB/s)', data: [4.2, 4.5, 3.8, 4.8, 5.2, 4.0, 4.8], borderColor: '#2A9D8F', backgroundColor: 'rgba(42,157,143,0.08)', borderWidth: 3, tension: 0.4, fill: true }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { borderDash: [5, 5] }, x: { grid: { display: false } } } }
+                });
+            }
+
+            function renderTelemetryPayloadDoughnut() {
+                const el = document.getElementById('telemetryPayloadDoughnut');
+                if (!el) return;
+                const ctx = el.getContext('2d');
+                window.telemetryDoughnutObj = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['MQTT Payload', 'LoRaWAN Mesh', 'HTTP Webhooks', 'BACnet Relay'],
+                        datasets: [{
+                            data: [45, 30, 15, 10],
+                            backgroundColor: ['#111111', '#2A9D8F', '#E76F51', '#264653'],
+                            borderWidth: 0,
+                            hoverOffset: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } },
+                        cutout: '62%'
+                    }
+                });
+            }
+
+            function renderDeviceProtocolChart() {
+                const el = document.getElementById('deviceProtocolChart');
+                if (!el) return;
+                const ctx = el.getContext('2d');
+                window.deviceProtocolObj = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Cellular 5G', 'LoRaWAN', 'Wi-Fi 7 Mesh', 'Ethernet POE', 'Bluetooth Mesh'],
+                        datasets: [{
+                            label: 'Nodes Count',
+                            data: [2150, 1420, 980, 640, 242],
+                            backgroundColor: '#2A9D8F',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, grid: { borderDash: [4, 4] } }, x: { grid: { display: false } } }
+                    }
+                });
+            }
+
+            function renderUserLoginTrendChart() {
+                const el = document.getElementById('userLoginTrendChart');
+                if (!el) return;
+                const ctx = el.getContext('2d');
+                window.userLoginTrendObj = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Session Logins',
+                            data: [320, 450, 410, 520, 490, 210, 180],
+                            backgroundColor: '#111111',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, grid: { borderDash: [4, 4] } }, x: { grid: { display: false } } }
+                    }
+                });
+            }
+
+            function renderAutomationFrequencyChart() {
+                const el = document.getElementById('automationFrequencyChart');
+                if (!el) return;
+                const ctx = el.getContext('2d');
+                window.automationFreqObj = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                        datasets: [{
+                            label: 'Rules Executed',
+                            data: [420, 310, 280, 1150, 1840, 1620, 1490, 1720, 1950, 1680, 890, 520],
+                            borderColor: '#2A9D8F',
+                            backgroundColor: 'rgba(42,157,143,0.08)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, grid: { borderDash: [4, 4] } }, x: { grid: { display: false } } }
+                    }
+                });
+            }
+
+            // Real-Time System Terminal Simulation
+            const terminal = document.getElementById('terminal-output');
+            const termMessages = [
+                "[INFO] Global packet routing optimized.",
+                "[WARN] High latency detected on EU-Central.",
+                "[SEC] Firewalled DDoS attempt from 192.168.1.104",
+                "[INFO] Database synced. 42ms ping.",
+                "[OK] Automation 'Morning' successfully compiled.",
+                "[WARN] Device 'Main Gate' battery at 15%.",
+                "[INFO] Resident 'John Doe' requested access.",
+                "[SEC] SSL Handshake successful for Node-X."
+            ];
+
+            if (terminal) {
+                setInterval(() => {
+                    const msg = document.createElement('div');
+                    msg.style.marginTop = '4px';
+                    msg.textContent = `> ${new Date().toLocaleTimeString()} - ${termMessages[Math.floor(Math.random() * termMessages.length)]}`;
+                    terminal.appendChild(msg);
+                    
+                    // Keep only last 10 messages
+                    if(terminal.children.length > 12) {
+                        terminal.removeChild(terminal.firstChild);
+                    }
+                }, 2500);
+            }
+
+            // Real-time Chart Data Simulation
+            setInterval(() => {
+                // Update Energy Chart
+                if (window.energyChartObj) {
+                    const data = window.energyChartObj.data.datasets[0].data;
+                    data.shift(); // remove first
+                    data.push(Math.floor(Math.random() * 20) + 35); // add new random
+                    window.energyChartObj.update();
+                }
+
+                // Update Mini Server Chart
+                if (window.miniServerChartObj) {
+                    const data2 = window.miniServerChartObj.data.datasets[0].data;
+                    data2.shift();
+                    data2.push(Math.floor(Math.random() * 30) + 30);
+                    window.miniServerChartObj.update();
+                }
+
+                // Randomly update radial gauges
+                const cpuVal = document.getElementById('cpu-val');
+                const ramVal = document.getElementById('ram-val');
+                if(cpuVal && ramVal) {
+                    const newCpu = Math.floor(Math.random() * 20) + 70;
+                    const newRam = Math.floor(Math.random() * 10) + 60;
+                    cpuVal.textContent = newCpu + '%';
+                    ramVal.textContent = newRam + '%';
+                    
+                    cpuVal.parentElement.parentElement.style.background = `conic-gradient(var(--primary) ${newCpu}%, #eee 0)`;
+                    ramVal.parentElement.parentElement.style.background = `conic-gradient(#2E7D32 ${newRam}%, #eee 0)`;
+                }
+            }, 3000);
+        });
+        // Force scroll to top on refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        // Sidebar Navigation Tab Switch -> Scroll Content to Top
+        const dashMainContent = document.querySelector('.main-content') || document.querySelector('.main-panel');
+        document.querySelectorAll('.sidebar a, .sidebar .nav-item').forEach(link => {
+            link.addEventListener('click', () => {
+                window.scrollTo(0, 0);
+                if (dashMainContent) dashMainContent.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            });
+        });
+
+        // Mobile Sidebar Toggle with Scroll Lock
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+        const sidebar = document.querySelector('.sidebar');
+
+        const toggleSidebarScrollLock = () => {
+            const dashMain = document.querySelector('.main-content') || document.querySelector('.main-panel');
+            if (sidebar && sidebar.classList.contains('open') && window.innerWidth <= 992) {
+                document.body.classList.add('sidebar-open');
+                document.documentElement.classList.add('sidebar-open');
+                document.body.style.overflow = 'hidden';
+                if (dashMain) dashMain.style.overflow = 'hidden';
+            } else {
+                document.body.classList.remove('sidebar-open');
+                document.documentElement.classList.remove('sidebar-open');
+                document.body.style.overflow = '';
+                if (dashMain) dashMain.style.overflow = '';
+            }
+        };
+
+        window.addEventListener('resize', toggleSidebarScrollLock);
+
+        if (mobileToggle && sidebar) {
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                toggleSidebarScrollLock();
+            });
+        }
+        if (sidebarCloseBtn && sidebar) {
+            sidebarCloseBtn.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                toggleSidebarScrollLock();
+            });
+        }
+        if (sidebar) {
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992 && !sidebar.contains(e.target) && mobileToggle && !mobileToggle.contains(e.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    toggleSidebarScrollLock();
+                }
+            });
+            
+            // Close sidebar when clicking a navigation link on mobile
+            const navLinks = sidebar.querySelectorAll('.nav-item a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 992 && sidebar.classList.contains('open')) {
+                        sidebar.classList.remove('open');
+                        toggleSidebarScrollLock();
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

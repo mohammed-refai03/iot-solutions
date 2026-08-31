@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Solutions | Our Services</title>
+    <link rel="stylesheet" href="styles.css?v=8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+        <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="Stackly" style="height: 32px; width: auto;"></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html" class="active-link">Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-primary btn-login">Login</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation Menu"><i class="ph ph-list"></i></button>
+        </div>
+    </nav>
+
+        <!-- Services Hero -->
+    <section class="page-hero">
+        <div class="hero-bg" style="background-image: url('assets/images/services_hero_bg_1782210757779.webp'); filter: brightness(0.4);"></div>
+        <div class="container relative text-center" style="z-index: 2;">
+            <span class="label text-white mb-3" style="color: rgba(255,255,255,0.7);">SERVICES</span>
+            <h1 class="hero-title reveal-text">Transforming the way enterprise connects</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.9);" class="hero-subtitle reveal-text">End-to-end IoT solutions designed for operational efficiency, security, and scalability.</p>
+        </div>
+    </section>
+
+    <!-- Core Solutions Overview (Hover Reveal Transition & Removed Arrow Buttons) -->
+    <style>
+        .core-solution-card {
+            position: relative;
+            height: 380px;
+            border-radius: 24px;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px 24px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .core-solution-card .card-bg-img {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .core-solution-card .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.88) 85%);
+            transition: background 0.4s ease;
+        }
+        .core-solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .core-solution-card:hover .card-bg-img {
+            transform: scale(1.08);
+        }
+        .core-solution-card:hover .card-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.94) 90%);
+        }
+        .core-solution-card .card-content-box {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .core-solution-card .card-hover-details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .core-solution-card:hover .card-hover-details {
+            max-height: 140px;
+            opacity: 1;
+            margin-top: 12px;
+        }
+    </style>
+    <section class="core-solutions section-padding bg-light">
+        <div class="container reveal-up">
+            <!-- Header Row with Left Title & Right Description/CTA -->
+            <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px;">
+                <div>
+                    <span class="label mb-2" style="display: inline-block;"><i class="ph ph-squares-four"></i> OVERVIEW</span>
+                    <h2 style="font-size: 2.2rem; font-weight: 700; margin: 0;">Our Core Solutions</h2>
+                </div>
+                <div style="max-width: 460px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px;">
+                    <p class="text-muted" style="font-size: 0.95rem; line-height: 1.5; margin: 0;">End-to-end enterprise IoT solutions engineered for operational efficiency, asset security, and real-time telemetry analytics.</p>
+                    <a href="404.html" class="btn-outline" style="border-radius: 30px; padding: 8px 20px; font-size: 0.88rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">Explore All Solutions <i class="ph ph-arrow-up-right" style="font-size: 1.1rem;"></i></a>
+                </div>
+            </div>
+
+            <!-- 4 Vertical Full-Bleed Image Cards Grid -->
+            <div class="grid-4">
+                <!-- Card 1: Sensing & Climate -->
+                <a href="404.html" class="core-solution-card">
+                    <div class="card-bg-img" style="background-image: url('assets/images/service_lighting_1782210769781.webp');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-content-box">
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0;">Sensing & Climate</h4>
+                        <div class="card-hover-details">
+                            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.88); margin-bottom: 8px; line-height: 1.4;">Environmental precision and real-time climate telemetry audit.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.78rem; color: rgba(255,255,255,0.8); display: flex; flex-direction: column; gap: 4px;">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Air Quality & Thermal Audit</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Automated HVAC Response</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2: Security & Access -->
+                <a href="404.html" class="core-solution-card">
+                    <div class="card-bg-img" style="background-image: url('assets/images/offer_card_2_1782207453282.webp');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-content-box">
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0;">Security & Access</h4>
+                        <div class="card-hover-details">
+                            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.88); margin-bottom: 8px; line-height: 1.4;">Total asset protection and encrypted access gateways.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.78rem; color: rgba(255,255,255,0.8); display: flex; flex-direction: column; gap: 4px;">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Biometric & Keyless Nodes</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> AI Perimeter Surveillance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 3: Telemetry & Analytics -->
+                <a href="404.html" class="core-solution-card">
+                    <div class="card-bg-img" style="background-image: url('assets/images/room_living_1782149533162.webp');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-content-box">
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0;">Telemetry & Analytics</h4>
+                        <div class="card-hover-details">
+                            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.88); margin-bottom: 8px; line-height: 1.4;">Real-time data insights and high-speed data pipelines.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.78rem; color: rgba(255,255,255,0.8); display: flex; flex-direction: column; gap: 4px;">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Sub-ms Ingest Latency</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Custom Executive Dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 4: IoT Network System -->
+                <a href="404.html" class="core-solution-card">
+                    <div class="card-bg-img" style="background-image: url('assets/images/impact_img_2_1782207584044.webp');"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-content-box">
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0;">IoT Network System</h4>
+                        <div class="card-hover-details">
+                            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.88); margin-bottom: 8px; line-height: 1.4;">Enterprise connectivity backbone and redundant mesh failover.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.78rem; color: rgba(255,255,255,0.8); display: flex; flex-direction: column; gap: 4px;">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Wi-Fi 7 & LPWAN Mesh</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-check" style="color: #2979FF; font-size: 0.88rem;"></i> Multi-Gateway Failover</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Details -->
+    <!-- 1. Lighting -->
+    <section class="service-detail section-padding">
+        <div class="container grid-2 align-center">
+            <div class="image-wrapper hover-lift">
+                <img src="assets/images/service_lighting_1782210769781.webp" alt="Intelligent Lighting">
+            </div>
+            <div class="content-wrapper">
+                <span class="label">AMBIANCE & SENSING</span>
+                <h2>Intelligent Sensing & Environmental Control</h2>
+                <p>We design dynamic IoT sensing ecosystems that track air quality, temperature, and environmental metrics in real-time. Experience automated climate responses that optimize energy usage and worker comfort.</p>
+                <ul class="feature-list mt-4">
+                    <li><i class="ph-fill ph-check-circle"></i> Circadian rhythm & daylight optimization</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Automated climate & smart glass controls</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Invisible sensor integration</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Security -->
+    <section class="service-detail section-padding bg-light">
+        <div class="container grid-2 align-center">
+            <div class="content-wrapper">
+                <span class="label">PROTECTION</span>
+                <h2>Advanced IoT Security & Access</h2>
+                <p>Protect what matters most. Our advanced security protocols grant you complete visibility over your connected infrastructure from anywhere in the world, combining high-grade hardware with intuitive software.</p>
+                <ul class="feature-list mt-4">
+                    <li><i class="ph-fill ph-check-circle"></i> Biometric & keyless access gateways</li>
+                    <li><i class="ph-fill ph-check-circle"></i> AI-powered perimeter monitoring</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Secure remote IoT device access</li>
+                </ul>
+            </div>
+            <div class="image-wrapper hover-lift">
+                <img src="assets/images/offer_card_2_1782207453282.webp" alt="Smart Security">
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Audio -->
+    <section class="service-detail section-padding">
+        <div class="container grid-2 align-center">
+            <div class="image-wrapper hover-lift">
+                <img src="assets/images/room_living_1782149533162.webp" alt="Home Audio">
+            </div>
+            <div class="content-wrapper">
+                <span class="label">TELEMETRY</span>
+                <h2>Telemetry & Real-Time Analytics</h2>
+                <p>Transform raw sensor data into actionable insights. We integrate high-speed telemetry gateways and data visualizers that provide instantaneous operational visibility across all facilities.</p>
+                <ul class="feature-list mt-4">
+                    <li><i class="ph-fill ph-check-circle"></i> Multi-zone synchronized sensor feeds</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Hidden architectural sensor nodes</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Custom operational dashboard design</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Network -->
+    <section class="service-detail section-padding bg-light">
+        <div class="container grid-2 align-center">
+            <div class="content-wrapper">
+                <span class="label">FOUNDATION</span>
+                <h2>Robust IoT Network Infrastructure</h2>
+                <p>An IoT solution is only as reliable as its network. We engineer enterprise-grade LPWAN, Wi-Fi 6/7, and industrial mesh networks that eliminate dead zones and effortlessly handle high-volume sensor telemetry.</p>
+                <ul class="feature-list mt-4">
+                    <li><i class="ph-fill ph-check-circle"></i> Enterprise Wi-Fi 6/7 & LPWAN deployment</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Redundant network failovers</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Professional rack & gateway management</li>
+                </ul>
+    </section>
+
+    <!-- New Section 1: Enterprise IoT Architecture Capabilities Matrix (Split 2-Column Banner with Glass Overlay Image) -->
+    <section class="capabilities-matrix-section section-padding">
+        <div class="container reveal-up">
+            <div class="text-center" style="margin-bottom: 64px;">
+                <span class="label">IOT CAPABILITIES MATRIX</span>
+                <h2>Scalable Architecture for High-Density Telemetry</h2>
+                <p class="subtitle mt-2" style="margin-bottom: 0;">Built to process millions of concurrent telemetry data points without single points of failure.</p>
+            </div>
+            <div class="grid-2 align-center" style="gap: 40px; margin-top: 16px;">
+                <!-- Left Glass Image Banner -->
+                <div class="hover-lift" style="position: relative; height: 420px; border-radius: var(--border-radius-lg); overflow: hidden; background-image: url('assets/images/project_modern_1782149573992.webp'); background-size: cover; background-position: center; box-shadow: var(--shadow-md);">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);"></div>
+                    <div style="position: absolute; top: 24px; left: 24px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 6px 14px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #00E676;"></span> 500K+ MSG / SEC INGEST
+                    </div>
+                    <div style="position: absolute; bottom: 32px; left: 24px; right: 24px; color: #fff;">
+                        <div style="font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 6px;">99.999%</div>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 500;">Telemetry Router Availability SLA</div>
+                    </div>
+                </div>
+
+                <!-- Right Capability Cards Stack -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; display: flex; align-items: flex-start; gap: 16px; box-shadow: var(--shadow-sm);">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: var(--bg-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                            <i class="ph-fill ph-cpu"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Edge Computing & Local Ingest</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin: 0;">Sub-millisecond localized decision processing at gateway level before cloud sync.</p>
+                        </div>
+                    </div>
+
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; display: flex; align-items: flex-start; gap: 16px; box-shadow: var(--shadow-sm);">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: var(--bg-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                            <i class="ph-fill ph-broadcast"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Multi-Protocol Wireless Mesh</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin: 0;">Seamless failover across LoRaWAN, Cellular NB-IoT, and Wi-Fi 6 mesh bands.</p>
+                        </div>
+                    </div>
+
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; display: flex; align-items: flex-start; gap: 16px; box-shadow: var(--shadow-sm);">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: var(--bg-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                            <i class="ph-fill ph-cloud-arrow-up"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Cloud Telemetry Pipeline</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin: 0;">Real-time Kafka & MQTT data streams routed directly into enterprise ERP or SCADA.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+     <!-- New Section 4: Implementation Process Showcase (Center Image with Flanking Process Steps) -->
+    <section class="security-resilience-section section-padding bg-light">
+        <div class="container reveal-up">
+            <div class="text-center" style="margin-bottom: 64px;">
+                <span class="label">METHODOLOGY</span>
+                <h2>Our End-to-End Implementation Process</h2>
+                <p class="subtitle mt-2" style="margin-bottom: 0;">A structured 4-stage engineering workflow ensuring zero-downtime deployment and enterprise reliability.</p>
+            </div>
+            <div class="grid-3 align-center" style="gap: 24px; margin-top: 16px;">
+                <!-- Left Stack: Steps 1 & 2 -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; box-shadow: var(--shadow-sm);">
+                        <i class="ph-fill ph-magnifying-glass-plus" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">01. Site & Network Survey</h4>
+                        <p class="small-text text-muted" style="font-size: 0.85rem; line-height: 1.5; margin: 0;">Spectral RF signal mapping, sensor placement analysis, and enterprise security compliance audits.</p>
+                    </div>
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; box-shadow: var(--shadow-sm);">
+                        <i class="ph-fill ph-cpu" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">02. Zero-Touch Provisioning</h4>
+                        <p class="small-text text-muted" style="font-size: 0.85rem; line-height: 1.5; margin: 0;">Cryptographic key flashing, TPM 2.0 configuration, and initial firmware loading onto edge gateways.</p>
+                    </div>
+                </div>
+
+                <!-- Center Image Card -->
+                <div class="hover-lift" style="position: relative; height: 360px; border-radius: var(--border-radius-lg); overflow: hidden; background-image: url('assets/images/service_lighting_1782210769781.webp'); background-size: cover; background-position: center; box-shadow: var(--shadow-md);">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);"></div>
+                    <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">DEPLOYMENT LIFECYCLE</span>
+                    <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; color: #fff; text-align: center;">
+                        <span style="font-size: 0.82rem; font-weight: 700; background: var(--accent); color: #fff; padding: 6px 16px; border-radius: 20px; display: inline-block;"><i class="ph-fill ph-check-circle"></i> 4-Stage Execution Active</span>
+                    </div>
+                </div>
+
+                <!-- Right Stack: Steps 3 & 4 -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; box-shadow: var(--shadow-sm);">
+                        <i class="ph-fill ph-broadcast" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">03. Protocol & Mesh Setup</h4>
+                        <p class="small-text text-muted" style="font-size: 0.85rem; line-height: 1.5; margin: 0;">Deploying multi-frequency LoRaWAN, Cellular NB-IoT, and Wi-Fi mesh routing across facility nodes.</p>
+                    </div>
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 24px; box-shadow: var(--shadow-sm);">
+                        <i class="ph-fill ph-chart-line-up" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">04. Cloud Sync & NOC Live</h4>
+                        <p class="small-text text-muted" style="font-size: 0.85rem; line-height: 1.5; margin: 0;">Streaming real-time telemetry into enterprise ERP systems with 24/7 proactive NOC monitoring.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+      <!-- Pricing / Support -->
+    <section class="support-plans section-padding bg-light">
+        <div class="container text-center">
+            <span class="label">MAINTENANCE</span>
+            <h2>Support Plans</h2>
+            <p class="subtitle">Ensure your IoT network runs perfectly year after year.</p>
+        </div>
+        <div class="container grid-3 mt-5">
+            <div class="pricing-card hover-lift">
+                <h4>Essential</h4>
+                <div class="price mt-3"><span>$</span>99<span class="period">/mo</span></div>
+                <p class="text-muted mt-2 small-text">Perfect for starter IoT network setups.</p>
+                <ul class="feature-list mt-4 mb-4">
+                    <li><i class="ph-fill ph-check-circle"></i> 24/7 remote sensor monitoring</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Annual network tune-up</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Priority firmware updates</li>
+                </ul>
+                <a href="404.html" class="btn-outline" style="width: 100%;">Choose Plan</a>
+            </div>
+            <div class="pricing-card popular hover-lift">
+                <div class="popular-badge">Most Popular</div>
+                <h4>Premium</h4>
+                <div class="price mt-3"><span>$</span>199<span class="period">/mo</span></div>
+                <p class="text-muted mt-2 small-text">Ideal for multi-site comprehensive coverage.</p>
+                <ul class="feature-list mt-4 mb-4">
+                    <li><i class="ph-fill ph-check-circle"></i> Everything in Essential</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Same-day priority remote service</li>
+                    <li><i class="ph-fill ph-check-circle"></i> 1 on-site hardware fix per year</li>
+                </ul>
+                <a href="404.html" class="btn-primary" style="width: 100%;">Choose Plan</a>
+            </div>
+            <div class="pricing-card hover-lift">
+                <h4>Enterprise</h4>
+                <div class="price mt-3"><span>$</span>399<span class="period">/mo</span></div>
+                <p class="text-muted mt-2 small-text">Dedicated concierge for massive industrial estates.</p>
+                <ul class="feature-list mt-4 mb-4">
+                    <li><i class="ph-fill ph-check-circle"></i> Everything in Premium</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Dedicated personal account manager</li>
+                    <li><i class="ph-fill ph-check-circle"></i> Unlimited zero-cost on-site service</li>
+                </ul>
+                <a href="404.html" class="btn-outline" style="width: 100%;">Choose Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section 2: Industry Sector Verticals Showcase (Staggered Bento Grid Matching Image 1 Design) -->
+    <section class="industry-verticals-section section-padding bg-light">
+        <div class="container reveal-up">
+            <div class="text-center" style="margin-bottom: 64px;">
+                <span class="label">SPECIALIZED SECTORS</span>
+                <h2>Tailored IoT Solutions by Industry Sector</h2>
+                <p class="subtitle mt-2" style="margin-bottom: 0;">Domain-specific hardware integration and custom telemetry for demanding operational environments.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start; margin-top: 16px;">
+                <!-- Column 1: Top Quote Card + Bottom Image Card -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Top Quote Card (Matched to Smart Manufacturing) -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; height: 280px; box-sizing: border-box;">
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); font-weight: 500; margin: 0;">"Implementing Stackly's predictive vibration nodes cut factory unplanned downtime by 42% in under 60 days. The automated PLC gateway integration delivers real-time machinery health alerts."</p>
+                    </div>
+
+                    <!-- Bottom Image Card -->
+                    <div class="hover-lift" style="position: relative; height: 280px; border-radius: 24px; overflow: hidden; background-image: url('assets/images/story_img_small_1782207417508.webp'); background-size: cover; background-position: center; box-shadow: var(--shadow-md); box-sizing: border-box;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);"></div>
+                        <div style="position: absolute; top: 20px; left: 20px; right: 20px; color: #fff;">
+                            <h5 style="font-size: 1.05rem; font-weight: 700; margin: 0;">Smart Manufacturing</h5>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.75);">Predictive Machinery Maintenance</span>
+                        </div>
+                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
+                            <span style="background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 20px;">+34% OEE GAIN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Top Image Card + Bottom Quote Card -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Top Image Card -->
+                    <div class="hover-lift" style="position: relative; height: 280px; border-radius: 24px; overflow: hidden; background-image: url('assets/images/project_coastal_1782149603446.webp'); background-size: cover; background-position: center; box-shadow: var(--shadow-md); box-sizing: border-box;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);"></div>
+                        <div style="position: absolute; top: 20px; left: 20px; right: 20px; color: #fff;">
+                            <h5 style="font-size: 1.05rem; font-weight: 700; margin: 0;">Cold Chain & Logistics</h5>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.75);">Real-Time GPS Cargo Tracking</span>
+                        </div>
+                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
+                            <span style="background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 20px;">99.9% THERMAL SLA</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Quote Card (Matched to Cold Chain & Logistics) -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; height: 280px; box-sizing: border-box;">
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); font-weight: 500; margin: 0;">"Deploying Stackly's cold chain GPS nodes and multi-sensor thermal loggers gave 100% real-time cargo visibility, guaranteeing a 99.9% thermal SLA across international freight routes."</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Top Quote Card + Bottom Image Card -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Top Quote Card (Matched to Municipal & Utility Grids) -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; height: 280px; box-sizing: border-box;">
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); font-weight: 500; margin: 0;">"Stackly's ultrasonic flow telemetry and smart pressure nodes reduced city municipal water loss by 35% within 90 days. The automated main-break detection triggers sub-5-minute NOC isolation."</p>
+                    </div>
+
+                    <!-- Bottom Image Card -->
+                    <div class="hover-lift" style="position: relative; height: 280px; border-radius: 24px; overflow: hidden; background-image: url('assets/images/impact_img_2_1782207584044.webp'); background-size: cover; background-position: center; box-shadow: var(--shadow-md); box-sizing: border-box;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);"></div>
+                        <div style="position: absolute; top: 20px; left: 20px; right: 20px; color: #fff;">
+                            <h5 style="font-size: 1.05rem; font-weight: 700; margin: 0;">Municipal & Utility Grids</h5>
+                            <span style="font-size: 0.8rem; color: rgba(255,255,255,0.75);">Ultrasonic Flow & Leak Telemetry</span>
+                        </div>
+                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
+                            <span style="background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 20px;">&lt;5M LEAK RESPONSE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- New Section 3: Interactive Edge Hardware Management (Full-Width Hero Banner with Floating Live Stats) -->
+    <section class="hardware-management-section section-padding">
+        <div class="container reveal-up">
+            <div style="position: relative; background: var(--primary); color: #fff; border-radius: var(--border-radius-lg); overflow: hidden; padding: 56px 40px; box-shadow: var(--shadow-lg);">
+                <div style="position: absolute; inset: 0; background-image: url('assets/images/featured_devices_1782149490726.webp'); background-size: cover; background-position: center; opacity: 0.15;"></div>
+                <div class="grid-2 align-center" style="position: relative; z-index: 2; gap: 36px;">
+                    <div>
+                        <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); color: #fff; padding: 6px 14px; border-radius: 30px; display: inline-block; margin-bottom: 16px;">FLEET MANAGEMENT</span>
+                        <h2 style="color: #fff; font-size: 2rem; font-weight: 700; margin-bottom: 16px;">Zero-Touch Provisioning & OTA Gateway Management</h2>
+                        <p style="color: rgba(255,255,255,0.85); font-size: 0.98rem; line-height: 1.6; margin-bottom: 24px;">Deploy thousands of hardware nodes effortlessly. Our cryptographic OTA manager delivers encrypted firmware patches with automatic rollback safety.</p>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                            <span style="font-size: 0.82rem; font-weight: 600; background: rgba(255,255,255,0.1); color: #fff; padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);"><i class="ph-fill ph-shield-check"></i> Hardware TPM 2.0 Security</span>
+                            <span style="font-size: 0.82rem; font-weight: 600; background: rgba(255,255,255,0.1); color: #fff; padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);"><i class="ph-fill ph-arrows-clockwise"></i> Auto Rollback Protection</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Hardware Monitor Box -->
+                    <div style="background: rgba(0,0,0,0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--border-radius); padding: 32px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.15);">
+                            <span style="font-size: 0.88rem; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.9);"><i class="ph-fill ph-hard-drives"></i> Live Fleet Overview</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: #00E676; background: rgba(0,230,118,0.15); padding: 4px 10px; border-radius: 12px;">12,480 Active Nodes</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.88rem;">
+                            <div style="display: flex; justify-content: space-between; color: rgba(255,255,255,0.85);">
+                                <span>Firmware Version Compliance</span>
+                                <span style="font-weight: 700; color: #fff;">99.8% (v4.2.1-OTA)</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: rgba(255,255,255,0.85);">
+                                <span>Average Edge Ingest Latency</span>
+                                <span style="font-weight: 700; color: #fff;">1.4ms</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: rgba(255,255,255,0.85);">
+                                <span>Cryptographic Key Rotations</span>
+                                <span style="font-weight: 700; color: #fff;">Automated (24h)</span>
+                            </div>
+                        </div>
+                        <a href="404.html" class="btn-primary mt-4" style="width: 100%; justify-content: center; background: #fff; color: var(--primary); border-color: #fff; font-weight: 700;">Explore OTA Console <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    
+
+  
+
+    <!-- CTA -->
+    <section class="cta-section section-padding">
+        <div class="container">
+            <div class="cta-box text-center shadow-lg">
+                <h2>Ready to transform your infrastructure?</h2>
+                <p>Schedule a private consultation with our IoT solution architects.</p>
+                <div class="cta-buttons mt-4">
+                    <a href="404.html" class="btn-primary btn-large">Book Consultation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-footer">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="Stackly" style="height: 32px; width: auto;"></a>
+                <p class="mt-2 text-muted">Enterprise IoT solutions for modern connected environments. We combine cutting-edge hardware with intelligent software to deliver seamless telemetry, security, and operational efficiency across your infrastructure.</p>
+                <div class="social-icons mt-4" style="display: flex; gap: 16px;">
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html" class="active-link">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="404.html">Lighting Control</a></li>
+                    <li><a href="404.html">Smart Security</a></li>
+                    <li><a href="404.html">Climate Automation</a></li>
+                    <li><a href="404.html">Audio & Media</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact Us</h4>
+                <ul class="contact-info" style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px;">
+                        <i class="ph-fill ph-map-pin" style="color: var(--text-muted); margin-top: 4px;"></i>
+                        <span class="text-muted" style="font-size: 15px;">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</span>
+                    </li>
+                    <li style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i class="ph-fill ph-phone" style="color: var(--text-muted);"></i>
+                        <a href="tel:9876543210" style="text-decoration: none; color: var(--text-muted); font-size: 15px;">9876543210</a>
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 8px;">
+                        <i class="ph-fill ph-envelope" style="color: var(--text-muted);"></i>
+                        <a href="mailto:info@stackly.com" style="text-decoration: none; color: var(--text-muted); font-size: 15px;">info@stackly.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom mt-5">
+            <p class="text-muted">&copy; 2026 Stackly IoT Solutions. All rights reserved.</p>
+            <div class="bottom-links">
+                <a href="404.html">Privacy Policy</a>
+                <a href="404.html">Terms of Service</a>
+                <a href="404.html">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js?v=11"></script>
+    <script>
+        // Award-Winning GSAP Animations for Services Page
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Force CSS reveal containers to be visible to prevent conflicts with GSAP
+            
+            // 1. Hero Cinematic Zoom & Parallax
+            gsap.fromTo(".services-hero .hero-bg", 
+                { scale: 1.2, filter: "brightness(0.5) blur(10px)" },
+                { 
+                    scale: 1, 
+                    filter: "brightness(0.7) blur(0px)",
+                    duration: 2.5, 
+                    ease: "power3.out" 
+                }
+            );
+
+            gsap.to(".services-hero .hero-bg", {
+                y: 100,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".services-hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // 2. Core Solutions 3D Stagger Reveal
+            gsap.set(".solution-card", { transformPerspective: 1000 });
+            gsap.from(".solution-card", {
+                y: 80,
+                rotationX: -45,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "back.out(1.5)",
+                scrollTrigger: {
+                    trigger: ".core-solutions .grid-4",
+                    start: "top 80%"
+                }
+            });
+
+            // 3. Service Details - Elegant Asymmetrical Reveal
+            const serviceDetails = document.querySelectorAll(".service-detail");
+            serviceDetails.forEach((section, index) => {
+                const image = section.querySelector(".image-wrapper img");
+                const textElements = section.querySelectorAll(".label, h2, p, .feature-list li");
+                
+                // Elegant Image Reveal without slow clip-path delay
+                if (image) {
+                    gsap.from(image, {
+                        y: 50,
+                        opacity: 0,
+                        scale: 0.95,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 80%"
+                        }
+                    });
+                }
+
+                // Text Stagger
+                if (textElements.length > 0) {
+                    gsap.from(textElements, {
+                        x: index % 2 === 0 ? 50 : -50,
+                        duration: 1,
+                        stagger: 0.1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 75%"
+                        }
+                    });
+                }
+            });
+
+            // 4. Process Timeline - Cascade Effect
+            gsap.from(".process-step", {
+                y: 50,
+                scale: 0.9,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".process-timeline",
+                    start: "top 80%"
+                }
+            });
+
+            // Process Image Reveal
+            gsap.fromTo(".process-image img", 
+                { scale: 1.5, rotationZ: -5 },
+                {
+                    scale: 1,
+                    rotationZ: 0,
+                    duration: 2,
+                    ease: "expo.out",
+                    scrollTrigger: {
+                        trigger: ".process-image",
+                        start: "top 85%"
+                    }
+                }
+            );
+
+            // 5. Pricing Cards Float
+            gsap.from(".pricing-card", {
+                y: 100,
+                duration: 1.2,
+                stagger: {
+                    amount: 0.6,
+                    from: "center"
+                },
+                ease: "back.out(1.2)",
+                scrollTrigger: {
+                    trigger: ".support-plans .grid-3",
+                    start: "top 80%"
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

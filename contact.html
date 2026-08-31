@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Solutions | Contact Us</title>
+    <link rel="stylesheet" href="styles.css?v=8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+        <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="Stackly" style="height: 32px; width: auto;"></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html" class="active-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-primary btn-login">Login</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation Menu"><i class="ph ph-list"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="page-hero">
+        <div class="hero-bg" style="background-image: url('assets/images/project_coastal_1782149603446.webp'); filter: brightness(0.4);"></div>
+        <div class="container relative" style="z-index: 2;">
+            <span class="label text-white mb-3" style="color: rgba(255,255,255,0.7);">CONTACT US</span>
+            <h1 class="hero-title">Let's build your IoT infrastructure.</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.9);" class="hero-subtitle">Our IoT solution architects are ready to engineer the perfect connected ecosystem for your enterprise.</p>
+        </div>
+    </section>
+
+    <!-- Contact Grid -->
+    <section class="section-padding" style="background: #fafafa;">
+        <div class="container contact-grid">
+            
+            <!-- Left Info -->
+            <div>
+                <h2 style="margin-bottom: 20px;">Get in touch</h2>
+                <p class="mb-4 text-muted">Whether you are deploying sensors from scratch or scaling an existing IoT ecosystem, our team is here to assist.</p>
+
+                
+                <div class="bento-info-cards">
+                    <div class="info-card">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <h4>Headquarters</h4>
+                        <p class="small-text text-muted">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="ph-fill ph-phone-call"></i>
+                        <h4>Phone</h4>
+                        <p class="small-text text-muted"><a href="tel:9876543210" style="color:inherit; text-decoration:none;">9876543210</a><br>Mon - Fri, 8am - 6pm</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="ph-fill ph-envelope-simple"></i>
+                        <h4>Email</h4>
+                        <p class="small-text text-muted"><a href="mailto:info@stackly.com" style="color:inherit; text-decoration:none;">info@stackly.com</a></p>
+                    </div>
+                    <div class="info-card">
+                        <i class="ph-fill ph-clock"></i>
+                        <h4>Support</h4>
+                        <p class="small-text text-muted">24/7 dedicated support<br>for Enterprise members.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Form -->
+            <div class="contact-form-wrapper">
+                <form id="contact-form" novalidate action="#">
+                    <div class="form-group form-field-anim">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe">
+                        <span class="inline-error-msg" id="name-error"><i class="ph-fill ph-warning-circle"></i> Please enter your full name.</span>
+                    </div>
+                    <div class="form-group form-field-anim">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                        <span class="inline-error-msg" id="email-error"><i class="ph-fill ph-warning-circle"></i> Please enter a valid email address.</span>
+                    </div>
+                    <div class="form-group form-field-anim">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="9876543210">
+                        <span class="inline-error-msg" id="phone-error"><i class="ph-fill ph-warning-circle"></i> Please enter a valid 10-digit phone number.</span>
+                    </div>
+                    <div class="form-group form-field-anim">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="Tell us about your project..."></textarea>
+                        <span class="inline-error-msg" id="message-error"><i class="ph-fill ph-warning-circle"></i> Please enter your message.</span>
+                    </div>
+                    <button type="submit" class="btn-primary form-field-anim" style="width: 100%; max-width: 100%; height: 50px; justify-content: center; align-items: center; border-radius: 12px; margin-top: 16px; display: flex;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+    <!-- Interactive Map Section -->
+    <section class="section-padding bg-light">
+        <div class="container text-center" style="margin-bottom: 36px;">
+            <span class="label mb-2" style="display: inline-block;">LOCATION</span>
+            <h2 style="margin-bottom: 12px;">Visit our showroom</h2>
+            <p class="text-muted" style="max-width: 650px; margin: 0 auto; line-height: 1.6; font-size: 1.05rem;">MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</p>
+        </div>
+        <div class="container" style="margin-top: 24px;">
+            <div class="map-section map-anim" style="border-radius: var(--border-radius-lg); overflow: hidden; height: 420px; position: relative; box-shadow: var(--shadow-md);">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.039655610265!2d78.1739798!3d11.6829566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babefef7fd970bb%3A0xe11aef1a71994f9!2sStackly!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="text-center mt-4">
+                <a href="https://www.google.com/maps/place/Stackly/@11.6829566,78.1739798,17z/data=!3m1!4b1!4m6!3m5!1s0x3babefef7fd970bb:0xe11aef1a71994f9!8m2!3d11.6829566!4d78.1739798!16s%2Fg%2F11l660s35r?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="ph-fill ph-map-pin"></i> View Location on Google Maps <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Global Regional Innovation Hubs (New Image-Rich Design) -->
+    <section class="global-offices-section section-padding">
+        <div class="container reveal-up">
+            <div class="text-center" style="margin-bottom: 64px;">
+                <span class="label">GLOBAL PRESENCE</span>
+                <h2>Our Regional Engineering & Operations Hubs</h2>
+                <p class="subtitle mt-2" style="margin-bottom: 0;">Connecting enterprise clients across India, Europe, and Asia-Pacific with dedicated local engineering support.</p>
+            </div>
+            <div class="grid-3" style="margin-top: 24px;">
+                <!-- Main HQ Hub -->
+                <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                    <div style="position: relative; height: 190px; background-image: url('assets/images/project_coastal_1782149603446.webp'); background-size: cover; background-position: center;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);"></div>
+                        <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">INDIA HEADQUARTERS</span>
+                        <span style="position: absolute; bottom: 16px; left: 16px; color: #fff; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-map-pin" style="color: var(--accent);"></i> Salem, Tamil Nadu</span>
+                    </div>
+                    <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Stackly Headquarters</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5;">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</p>
+                        </div>
+                        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-main);">
+                                <i class="ph-fill ph-phone" style="color: var(--text-muted); font-size: 1.05rem;"></i>
+                                <a href="tel:9876543210" style="color: inherit; text-decoration: none;">9876543210</a>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-main);">
+                                <i class="ph-fill ph-envelope" style="color: var(--text-muted); font-size: 1.05rem;"></i>
+                                <a href="mailto:info@stackly.com" style="color: inherit; text-decoration: none;">info@stackly.com</a>
+                            </div>
+                            <a href="https://www.google.com/maps/place/Stackly/@11.6829566,78.1739798,17z/data=!3m1!4b1!4m6!3m5!1s0x3babefef7fd970bb:0xe11aef1a71994f9!8m2!3d11.6829566!4d78.1739798!16s%2Fg%2F11l660s35r?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="card-link mt-2" style="font-size: 0.85rem; font-weight: 600;">View on Google Maps <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Europe Hub -->
+                <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                    <div style="position: relative; height: 190px; background-image: url('assets/images/impact_img_2_1782207584044.webp'); background-size: cover; background-position: center;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);"></div>
+                        <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">EUROPE</span>
+                        <span style="position: absolute; bottom: 16px; left: 16px; color: #fff; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-map-pin" style="color: var(--accent);"></i> Frankfurt, Germany</span>
+                    </div>
+                    <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Frankfurt Sensor Test Lab</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5;">Kaiserstraße 42, Innovation Park<br>60329 Frankfurt am Main, Germany</p>
+                        </div>
+                        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-main);">
+                                <i class="ph-fill ph-phone" style="color: var(--text-muted); font-size: 1.05rem;"></i>
+                                <a href="tel:+496950509100" style="color: inherit; text-decoration: none;">+49 69 5050 9100</a>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-main);">
+                                <i class="ph-fill ph-envelope" style="color: var(--text-muted); font-size: 1.05rem;"></i>
+                                <a href="mailto:eu@Stackly.com" style="color: inherit; text-decoration: none;">eu@Stackly.com</a>
+                            </div>
+                            <a href="404.html" class="card-link mt-2" style="font-size: 0.85rem; font-weight: 600;">Contact Regional Team <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Asia-Pacific Hub -->
+                <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                    <div style="position: relative; height: 190px; background-image: url('assets/images/project_modern_1782149573992.webp'); background-size: cover; background-position: center;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);"></div>
+                        <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">ASIA-PACIFIC</span>
+                        <span style="position: absolute; bottom: 16px; left: 16px; color: #fff; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-map-pin" style="color: var(--accent);"></i> Singapore</span>
+                    </div>
+                    <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Singapore Smart City Hub</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5;">8 Marina Boulevard, Financial Tower<br>Singapore 018981</p>
+                        </div>
+                        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-main);">
+                                <i class="ph-fill ph-phone" style="color: var(--text-muted); font-size: 1.05rem;"></i>
+                                <a href="tel:+6567890122" style="color: inherit; text-decoration: none;">+65 6789 0122</a>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-main);">
+                                <i class="ph-fill ph-envelope" style="color: var(--text-muted); font-size: 1.05rem;"></i>
+                                <a href="mailto:apac@Stackly.com" style="color: inherit; text-decoration: none;">apac@Stackly.com</a>
+                            </div>
+                            <a href="404.html" class="card-link mt-2" style="font-size: 0.85rem; font-weight: 600;">Contact Regional Team <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- New Section 5: IoT Project Onboarding & 4-Step Deployment Workflow (Redesigned Stepper Pipeline Layout) -->
+    <section class="deployment-workflow-section section-padding bg-light">
+        <div class="container reveal-up">
+            <div class="text-center mb-5">
+                <span class="label">ONBOARDING WORKFLOW</span>
+                <h2>From Initial Inquiry to Live Sensor Telemetry</h2>
+                <p class="subtitle mt-2">Our streamlined 4-step deployment methodology ensures zero operational disruption to your facility.</p>
+            </div>
+            
+            <!-- Connected Pipeline Track -->
+            <div style="position: relative; margin-top: 40px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; position: relative; z-index: 2;">
+                    <!-- Step 01 -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                        <div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <span style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">01</span>
+                                <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); background: var(--bg-light); padding: 4px 10px; border-radius: 20px;">PHASE 1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <i class="ph-fill ph-magnifying-glass" style="font-size: 1.4rem; color: var(--primary);"></i>
+                                <h4 style="font-size: 1.15rem; font-weight: 700; margin: 0;">Infrastructure Audit</h4>
+                            </div>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">Technical review of existing site connectivity, noise levels, and sensor gateway density requirements.</p>
+                        </div>
+                        <div style="padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <span style="font-size: 0.78rem; font-weight: 600; color: var(--primary); background: var(--bg-light); padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+                                <i class="ph-bold ph-file-text"></i> Site Coverage Report
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Step 02 -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                        <div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <span style="width: 44px; height: 44px; border-radius: 50%; background: var(--bg-white); border: 2px solid var(--primary); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem;">02</span>
+                                <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); background: var(--bg-light); padding: 4px 10px; border-radius: 20px;">PHASE 2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <i class="ph-fill ph-blueprint" style="font-size: 1.4rem; color: var(--primary);"></i>
+                                <h4 style="font-size: 1.15rem; font-weight: 700; margin: 0;">Topology Architecture</h4>
+                            </div>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">Custom network topology design, wireless frequency mapping, and tailored hardware BOM proposal.</p>
+                        </div>
+                        <div style="padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <span style="font-size: 0.78rem; font-weight: 600; color: var(--primary); background: var(--bg-light); padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+                                <i class="ph-bold ph-map-trifold"></i> Network Topology Spec
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Step 03 -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                        <div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <span style="width: 44px; height: 44px; border-radius: 50%; background: var(--bg-white); border: 2px solid var(--primary); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem;">03</span>
+                                <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); background: var(--bg-light); padding: 4px 10px; border-radius: 20px;">PHASE 3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <i class="ph-fill ph-hard-drives" style="font-size: 1.4rem; color: var(--primary);"></i>
+                                <h4 style="font-size: 1.15rem; font-weight: 700; margin: 0;">Gateway Pilot Rollout</h4>
+                            </div>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">Provisioning pilot sensor nodes and edge gateways in your facility within 72 hours for live baseline data.</p>
+                        </div>
+                        <div style="padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <span style="font-size: 0.78rem; font-weight: 600; color: var(--primary); background: var(--bg-light); padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+                                <i class="ph-bold ph-broadcast"></i> Live Telemetry Feed
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Step 04 -->
+                    <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                        <div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <span style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">04</span>
+                                <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); background: var(--bg-light); padding: 4px 10px; border-radius: 20px;">PHASE 4</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <i class="ph-fill ph-chart-polar" style="font-size: 1.4rem; color: var(--primary);"></i>
+                                <h4 style="font-size: 1.15rem; font-weight: 700; margin: 0;">Full Scale & NOC SLA</h4>
+                            </div>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">Full-scale deployment with automated alert rules, dashboard provisioning, and 24/7 NOC coverage.</p>
+                        </div>
+                        <div style="padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <span style="font-size: 0.78rem; font-weight: 600; color: var(--primary); background: var(--bg-light); padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+                                <i class="ph-bold ph-shield-check"></i> 24/7 NOC Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section 7: IoT Solutions Hardware & Field Deployments Showcase (3 Image Contents) -->
+    <section class="iot-solutions-showcase-section section-padding">
+        <div class="container reveal-up">
+            <div class="text-center" style="margin-bottom: 64px;">
+                <span class="label">IOT HARDWARE & DEPLOYMENTS</span>
+                <h2>Enterprise IoT Solutions Ready for Deployment</h2>
+                <p class="subtitle mt-2" style="margin-bottom: 0;">Explore our battle-tested hardware nodes, edge gateways, and industrial telemetry modules.</p>
+            </div>
+            <div class="grid-3" style="margin-top: 24px;">
+                <!-- Content 1: Industrial Edge Telemetry Gateway -->
+                <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                    <div style="position: relative; height: 210px; background-image: url('assets/images/featured_devices_1782149490726.webp'); background-size: cover; background-position: center;">
+                        <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">GATEWAY NODE</span>
+                    </div>
+                    <div style="padding: 28px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Enterprise Edge Telemetry Gateway</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">High-throughput edge router supporting 10,000+ simultaneous sensor connections with local offline buffer storage.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-muted);">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Dual SIM Cellular & Wi-Fi 7</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> IP67 Industrial Rugged Casing</li>
+                            </ul>
+                        </div>
+                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <a href="404.html" class="card-link" style="font-size: 0.88rem; font-weight: 600;">View Hardware Specs <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content 2: Environmental Sensing & Air Quality Array -->
+                <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                    <div style="position: relative; height: 210px; background-image: url('assets/images/service_lighting_1782210769781.webp'); background-size: cover; background-position: center;">
+                        <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">SENSING MATRIX</span>
+                    </div>
+                    <div style="padding: 28px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Smart Environmental Sensor Array</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">Precision temperature, humidity, vibration, and air quality telemetry node engineered for cleanrooms & factories.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-muted);">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> 0.1°C Thermal Sensitivity</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> 5-Year Ultra-Low Power Battery</li>
+                            </ul>
+                        </div>
+                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <a href="404.html" class="card-link" style="font-size: 0.88rem; font-weight: 600;">Explore Sensor Matrix <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content 3: Biometric Access & Facility Security Node -->
+                <div class="hover-lift" style="background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: var(--transition);">
+                    <div style="position: relative; height: 210px; background-image: url('assets/images/offer_card_2_1782207453282.webp'); background-size: cover; background-position: center;">
+                        <span style="position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">SECURITY NODE</span>
+                    </div>
+                    <div style="padding: 28px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Zero-Trust Access Control Gateway</h4>
+                            <p class="small-text text-muted" style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">Encrypted access node featuring RFID, biometric verification, and automated door lock telemetry integration.</p>
+                            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-muted);">
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> AES-256 Hardware Encryption</li>
+                                <li style="display: flex; align-items: center; gap: 8px;"><i class="ph-bold ph-check" style="color: var(--primary);"></i> Offline Card Caching (&lt;10ms)</li>
+                            </ul>
+                        </div>
+                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <a href="404.html" class="card-link" style="font-size: 0.88rem; font-weight: 600;">Read Security Architecture <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+   
+
+    <!-- FAQ Section -->
+    <section class="section-padding bg-light" id="faq">
+        <div class="container reveal-up">
+            <div class="text-center" style="margin-bottom: 64px;">
+                <span class="label">HELP & KNOWLEDGE BASE</span>
+                <h2>Frequently Asked Questions</h2>
+                <p class="subtitle mt-2" style="margin-bottom: 0;">Answers to common inquiries about our enterprise IoT hardware, gateways, and field deployments.</p>
+            </div>
+            <div class="faq-accordion">
+                <!-- FAQ 1 (Active by Default) -->
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>How long does a typical enterprise IoT deployment take?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer" style="max-height: 250px;">
+                        Deployment timelines vary based on project scale. Initial site surveys and zero-touch gateway deployments are completed within 48 to 72 hours, while enterprise-wide industrial IoT integration across multiple facilities takes 2 to 4 weeks.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need existing wired infrastructure for sensor deployments?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        No. While hardwired Ethernet is supported, our gateways operate on multi-protocol wireless networks including LoRaWAN for long-range telemetry, Wi-Fi 6 for high-speed edge analytics, and dual-SIM Cellular LTE-M for instant connectivity.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is our sensor data and telemetry payload encrypted?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Yes. All sensor payloads are encrypted at the hardware level using TLS 1.3 and SOC 2 Type II compliant zero-trust protocols. Gateway credentials are flashed directly onto hardware Root-of-Trust chips to prevent unauthorized access.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What happens if our primary Internet connection goes down?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Edge gateways continue localized decision-making with sub-millisecond response times. Telemetry packets are buffered securely on local gateway NVRAM and automatically sync to the cloud as soon as cellular LPWAN failover reconnects.
+                    </div>
+                </div>
+
+                <!-- FAQ 5 (New) -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does zero-touch hardware provisioning work for new site deployments?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Gateways are pre-configured with TPM 2.0 cryptographic certificates prior to shipping. Once powered on and connected to any network (Cellular, LoRaWAN, or Ethernet), the gateway automatically authenticates with our cloud NOC and downloads its assigned sensor telemetry configuration within seconds.
+                    </div>
+                </div>
+
+                <!-- FAQ 6 (New) -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can Stackly IoT integrate with our existing ERP or SCADA software?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. Our unified cloud telemetry pipeline provides real-time Kafka / MQTT streams and REST API Webhooks that route directly into SAP, Oracle SCADA, AWS IoT Core, Microsoft Azure, and custom enterprise portals.
+                    </div>
+                </div>
+
+                <!-- FAQ 7 (New) -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What NOC support SLA guarantees are included with enterprise plans?</span>
+                        <div class="faq-icon-box">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        All enterprise contracts include a guaranteed 99.999% telemetry router availability SLA, 24/7/365 NOC emergency hotline access, sub-15-minute emergency ticket response times, and automated OTA firmware health monitoring.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section 6: IoT Technical Emergency Hotline & Live Status Center -->
+    <section class="emergency-status-section section-padding" style="padding-bottom: 80px;">
+        <div class="container reveal-up">
+            <div style="background: var(--primary); color: #fff; border-radius: var(--border-radius-lg); padding: 48px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; box-shadow: var(--shadow-lg);">
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #00E676; display: inline-block; box-shadow: 0 0 10px #00E676;"></span>
+                        <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.8);">ALL SYSTEMS OPERATIONAL • 99.999% SLA UPTIME</span>
+                    </div>
+                    <h3 style="color: #fff; font-size: 1.6rem; margin-bottom: 8px;">Live Network Health & Emergency NOC Dispatch</h3>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; margin: 0;">Our NOC engineers continuously monitor global edge routers and cloud gateways around the clock.</p>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                    <a href="tel:9876543210" class="btn-primary" style="background: #fff; color: var(--primary); border-color: #fff; font-weight: 700; padding: 14px 24px;"><i class="ph-fill ph-phone-call"></i> Emergency NOC Hotline (9876543210)</a>
+                    <a href="404.html" class="btn-secondary" style="font-weight: 600; padding: 14px 24px;">System Status Page <i class="ph ph-arrow-up-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-footer">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="assets/images/logo.webp" alt="Stackly" style="height: 32px; width: auto;"></a>
+                <p class="mt-2 text-muted">Enterprise IoT solutions for modern connected environments. We combine cutting-edge hardware with intelligent software to deliver seamless telemetry, security, and operational efficiency across your infrastructure.</p>
+                <div class="social-icons mt-4" style="display: flex; gap: 16px;">
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="404.html" style="color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s;"><i class="ph-fill ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html" class="active-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="404.html">Lighting Control</a></li>
+                    <li><a href="404.html">Smart Security</a></li>
+                    <li><a href="404.html">Climate Automation</a></li>
+                    <li><a href="404.html">Audio & Media</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact Us</h4>
+                <ul class="contact-info" style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px;">
+                        <i class="ph-fill ph-map-pin" style="color: var(--text-muted); margin-top: 4px;"></i>
+                        <span class="text-muted" style="font-size: 15px;">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</span>
+                    </li>
+                    <li style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i class="ph-fill ph-phone" style="color: var(--text-muted);"></i>
+                        <a href="tel:9876543210" style="text-decoration: none; color: var(--text-muted); font-size: 15px;">9876543210</a>
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 8px;">
+                        <i class="ph-fill ph-envelope" style="color: var(--text-muted);"></i>
+                        <a href="mailto:info@stackly.com" style="text-decoration: none; color: var(--text-muted); font-size: 15px;">info@stackly.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom mt-5">
+            <p class="text-muted">&copy; 2026 Stackly IoT Solutions. All rights reserved.</p>
+            <div class="bottom-links">
+                <a href="404.html">Privacy Policy</a>
+                <a href="404.html">Terms of Service</a>
+                <a href="404.html">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js?v=9"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Force CSS reveal containers to be visible to prevent conflicts
+            
+            // FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    faqItems.forEach(i => i.classList.remove('open'));
+                    if (!isOpen) item.classList.add('open');
+                });
+            });
+
+            // --- UNIQUE 3D GSAP ANIMATIONS ---
+
+            // 1. Hero Letter-Spacing Reveal
+            const heroTitle = document.querySelector(".hero-title");
+            gsap.to(heroTitle, {
+                letterSpacing: "-0.04em",
+                opacity: 1,
+                duration: 2,
+                ease: "expo.out",
+                delay: 0.2
+            });
+
+            gsap.from(".hero-subtitle", {
+                y: 20,
+                duration: 1,
+                delay: 0.8,
+                ease: "power2.out"
+            });
+
+            // 2. Diagonal Elastic Stagger for Info Cards
+            gsap.from(".info-card", {
+                y: 50,
+                duration: 1.5,
+                stagger: 0.15,
+                ease: "elastic.out(1, 0.5)",
+                scrollTrigger: {
+                    trigger: ".bento-info-cards",
+                    start: "top 85%"
+                }
+            });
+
+            // 3. 3D Form Flip Reveal (Door swing effect)
+            gsap.set(".contact-form-wrapper", { transformOrigin: "left center", transformPerspective: 1500 });
+            gsap.from(".contact-form-wrapper", {
+                rotationY: -90,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".contact-grid",
+                    start: "top 80%"
+                }
+            });
+
+            // 4. Sequential Field Pop Inside Form
+            gsap.from(".form-field-anim", {
+                scale: 0.8,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "back.out(1.5)",
+                scrollTrigger: {
+                    trigger: ".contact-form-wrapper",
+                    start: "top 70%"
+                }
+            });
+
+            // 5. Map Section 3D Unfold
+            gsap.set(".map-anim", { transformOrigin: "top center", transformPerspective: 1000 });
+            gsap.from(".map-anim", {
+                rotationX: 45,
+                scale: 0.9,
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".map-section",
+                    start: "top 80%"
+                }
+            });
+
+            gsap.from(".map-overlay", {
+                scale: 0,
+                duration: 1,
+                delay: 0.5,
+                ease: "elastic.out(1, 0.5)",
+                scrollTrigger: {
+                    trigger: ".map-section",
+                    start: "top 80%"
+                }
+            });
+
+            // 6. FAQ Cascade Reveal
+            gsap.from(".faq-item", {
+                y: 50,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".faq-accordion",
+                    start: "top 85%"
+                }
+            });
+
+            // 7. Contact Form Inline Validation Logic
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.setAttribute('novalidate', 'novalidate');
+                
+                // Suppress any native browser tooltips on invalid events
+                contactForm.querySelectorAll('input, textarea').forEach(input => {
+                    input.addEventListener('invalid', (e) => {
+                        e.preventDefault();
+                    });
+                });
+
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const phoneInput = document.getElementById('phone');
+                const messageInput = document.getElementById('message');
+
+                const validateNameField = (input, errorId) => {
+                    const errorEl = document.getElementById(errorId);
+                    const val = input.value.trim();
+                    const alphaRegex = /^[A-Za-z\s]+$/;
+
+                    if (val === '') {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your full name.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else if (!alphaRegex.test(val)) {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Full name must contain only alphabets and spaces.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                        return true;
+                    }
+                };
+
+                const validatePhoneField = (input, errorId) => {
+                    const errorEl = document.getElementById(errorId);
+                    const val = input.value.trim();
+                    const numericRegex = /^[0-9]+$/;
+
+                    if (val === '') {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your phone number.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else if (!numericRegex.test(val)) {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Phone number must contain only numbers.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else if (val.length !== 10) {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter a valid 10-digit phone number.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                        return true;
+                    }
+                };
+
+                const validateEmailField = (input, errorId) => {
+                    const errorEl = document.getElementById(errorId);
+                    const val = input.value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                    if (val === '') {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your email address.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else if (!emailRegex.test(val)) {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter a valid email address.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                        return true;
+                    }
+                };
+
+                const validateMessageField = (input, errorId) => {
+                    const errorEl = document.getElementById(errorId);
+                    const val = input.value.trim();
+
+                    if (val === '') {
+                        input.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter your message.';
+                            errorEl.classList.add('active');
+                        }
+                        return false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                        return true;
+                    }
+                };
+
+                // Real-time input validation: show error ONLY on wrong value, hide when correct or typing
+                nameInput.addEventListener('input', () => {
+                    const val = nameInput.value.trim();
+                    const alphaRegex = /^[A-Za-z\s]+$/;
+                    const errorEl = document.getElementById('name-error');
+                    if (val !== '' && !alphaRegex.test(val)) {
+                        nameInput.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Full name must contain only alphabets and spaces.';
+                            errorEl.classList.add('active');
+                        }
+                    } else {
+                        nameInput.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                    }
+                });
+
+                phoneInput.addEventListener('input', () => {
+                    const val = phoneInput.value.trim();
+                    const numericRegex = /^[0-9]+$/;
+                    const errorEl = document.getElementById('phone-error');
+                    if (val !== '' && !numericRegex.test(val)) {
+                        phoneInput.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Phone number must contain only numbers.';
+                            errorEl.classList.add('active');
+                        }
+                    } else {
+                        phoneInput.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                    }
+                });
+
+                emailInput.addEventListener('input', () => {
+                    const val = emailInput.value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const errorEl = document.getElementById('email-error');
+                    if (val !== '' && val.includes('@') && !emailRegex.test(val)) {
+                        emailInput.classList.add('is-invalid');
+                        if (errorEl) {
+                            errorEl.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Please enter a valid email address.';
+                            errorEl.classList.add('active');
+                        }
+                    } else {
+                        emailInput.classList.remove('is-invalid');
+                        if (errorEl) errorEl.classList.remove('active');
+                    }
+                });
+
+                messageInput.addEventListener('input', () => {
+                    const errorEl = document.getElementById('message-error');
+                    messageInput.classList.remove('is-invalid');
+                    if (errorEl) errorEl.classList.remove('active');
+                });
+
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    let isValid = true;
+
+                    if (!validateNameField(nameInput, 'name-error')) isValid = false;
+                    if (!validateEmailField(emailInput, 'email-error')) isValid = false;
+                    if (!validatePhoneField(phoneInput, 'phone-error')) isValid = false;
+                    if (!validateMessageField(messageInput, 'message-error')) isValid = false;
+
+                    if (isValid) {
+                        window.location.href = '404.html';
+                    } else {
+                        const firstInvalid = contactForm.querySelector('.is-invalid');
+                        if (firstInvalid) firstInvalid.focus();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
