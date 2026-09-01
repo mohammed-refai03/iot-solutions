@@ -715,8 +715,7 @@
                     const password = loginPasswordInput ? loginPasswordInput.value : '';
 
                     if (loginSubmitBtn) {
-                        loginSubmitBtn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> Authenticating...';
-                        loginSubmitBtn.disabled = true;
+                        loginSubmitBtn.innerHTML = '<span>Sign In</span><i class="ph-bold ph-sign-in"></i>';
                     }
 
                     setTimeout(() => {
@@ -918,8 +917,7 @@
                     const password = passwordInput ? passwordInput.value : '';
 
                     if (signupSubmitBtn) {
-                        signupSubmitBtn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> Processing...';
-                        signupSubmitBtn.disabled = true;
+                        signupSubmitBtn.innerHTML = '<span>Register Account</span><i class="ph-bold ph-arrow-right"></i>';
                     }
 
                     setTimeout(() => {
@@ -944,6 +942,18 @@
             if (urlParams.get('mode') === 'signup' && goToSignup) {
                 goToSignup.click();
             }
+
+            // Handle browser back button (pageshow event) to maintain normal button state
+            window.addEventListener('pageshow', () => {
+                if (loginSubmitBtn) {
+                    loginSubmitBtn.innerHTML = '<span>Sign In</span><i class="ph-bold ph-sign-in"></i>';
+                    loginSubmitBtn.disabled = false;
+                }
+                if (signupSubmitBtn) {
+                    signupSubmitBtn.innerHTML = '<span>Register Account</span><i class="ph-bold ph-arrow-right"></i>';
+                    signupSubmitBtn.disabled = false;
+                }
+            });
         });
     </script>
 </body>
